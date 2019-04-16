@@ -1,25 +1,23 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 
 class App extends Component {
+  componentDidMount() {
+    var BMap = window.BMap
+    var map = new BMap.Map("container", {mapStyle: {style: 'dark'}})
+    var point = new BMap.Point(106.468834, 29.561632)
+    map.centerAndZoom(point, 15);
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <div className="input-container">
+          <div className="input-inner-container">
+            <input className="input" type="text" />
+          </div>
+        </div>
+        <div id="container"></div>
       </div>
     );
   }
