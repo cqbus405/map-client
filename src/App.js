@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './App.scss';
 
 class App extends Component {
   componentDidMount() {
@@ -14,7 +14,9 @@ class App extends Component {
       <div className="App">
         <div className="input-container">
           <div className="input-inner-container">
-            <input className="input" type="text" />
+            <input className="input" type="search" placeholder="请输入起点" />
+            <div style={{height:'1px',width:'100%',backgroundColor:'black'}}></div>
+            <input className="input" type="search" placeholder="请输入终点" />
           </div>
         </div>
         <div id="container"></div>
