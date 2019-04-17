@@ -12,15 +12,18 @@ class Search extends Component {
 	}
 
 	handleClick() {
-		// console.log('添加地点')
-		this.state.destinations.push(<TextBox hint="请输入目的地" />)
-		console.log(JSON.stringify(this.state.destinations))
+		let destinations = this.state.destinations
+		destinations.push("请输入目的地")
+		this.setState({
+			destinations
+		})
 	}
 
 	render() {
 		return (
 			<div style={{padding:'12px'}}>
 				<TextBox hint="请输入起点" />
+				<ul>{this.state.destinations.map((destination, key) => <TextBox key={key} hint={destination} />)}</ul>
 				<AddButton handleClick={this.handleClick} />
 			</div>
 		)
