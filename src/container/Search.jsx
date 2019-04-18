@@ -23,7 +23,7 @@ class Search extends Component {
 		return (
 			<div style={{padding:'12px'}}>
 				<TextBox hint="请输入起点" />
-				<ul>{this.state.destinations.map((destination, key) => <TextBox key={key} hint={destination} />)}</ul>
+				{this.state.destinations.map((destination, key) => <TextBox key={key} hint={destination} />)}
 				<AddButton handleClick={this.handleClick} />
 			</div>
 		)
