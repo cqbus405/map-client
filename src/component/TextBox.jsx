@@ -3,9 +3,7 @@ import '../sass/textbox.scss'
 
 let TextBox = props => {
 	return (
-		<div className="textbox">
-			<input type="text" placeholder={props.hint} />
-		</div>
+		<input className="textbox" type="text" placeholder={props.hint} />
 	)
 }
 
