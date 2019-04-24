@@ -1,11 +1,9 @@
 import React from 'react'
-import '../sass/button.scss'
+import '../assets/sass/button.scss'
 
-let AddButton = props => {
+const AddButton = props => {
 	return (
-		<div style={{textAlign:'center'}}>
-			<button className="addbutton" onClick={props.handleClick}></button>
-		</div>
+		<button className="addbutton" onClick={props.handleClick}></button>
 	)
 }
 

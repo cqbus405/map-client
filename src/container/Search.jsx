@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import AddButton from '../component/AddButton'
 import TextBox from '../component/TextBox'
 import DeleteButton from '../component/DeleteButton'
+import Header from '../component/Header'
+import SearchButton from '../component/SearchButton'
+// import { get } from '../action/actions'
 
 class Search extends Component {
 	constructor(props) {
@@ -14,6 +18,15 @@ class Search extends Component {
 	}
 
 	handleAddButtonClick() {
+		// const { dispatch } = this.props
+
+		// const values = {
+		// 	place: '华宇广场',
+		// 	region: '重庆'
+		// }
+
+		// dispatch(get('http://39.98.198.86:3000/locations', values))
+
 		let destinations = this.state.destinations
 		destinations.push("请输入目的地")
 		this.setState({
@@ -23,24 +36,39 @@ class Search extends Component {
 
 	handleDeleteButtonClick(event, index) {
 		console.log(index)
+		let destinations = this.state.destinations
+		destinations.splice(index, 1)
+		this.setState({
+			destinations
+		})
 	}
 
 	render() {
 		return (
-			<div style={{padding:'12px'}}>
-				<TextBox hint="请输入起点" />
-				{this.state.destinations.map((destination, index) => {
-					return (
-						<div key={index}>
-							<TextBox hint={destination} />
-							<DeleteButton handleClick={e => this.handleDeleteButtonClick(e, index)} />
-						</div>
-					)
-				})}
-				<AddButton handleClick={this.handleAddButtonClick} />
+			<div>
+				<Header />
+				<div style={{padding: '12px'}}>
+					<div>
+						<TextBox hint="请输入起点" />
+						<AddButton handleClick={this.handleAddButtonClick} />
+					</div>
+					{this.state.destinations.map((destination, index) => {
+						return (
+							<div key={index}>
+								<TextBox hint={destination} />
+								<DeleteButton handleClick={e => this.handleDeleteButtonClick(e, index)} />
+							</div>
+						)
+					})}
+					<SearchButton />
+				</div>
 			</div>
 		)
 	}
 }
 
-export default Search
+const mapStateToProps = state => {
+	return {}
+}
+
+export default connect(mapStateToProps)(Search)

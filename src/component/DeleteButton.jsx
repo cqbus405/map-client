@@ -1,7 +1,7 @@
 import React from 'react'
-import '../sass/button.scss'
+import '../assets/sass/button.scss'
 
-let DeleteButton = props => {
+const DeleteButton = props => {
 	return (
 		<button className="deletebutton" onClick={props.handleClick}></button>
 	)

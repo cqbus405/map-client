@@ -1,7 +1,7 @@
 import React from 'react'
-import '../sass/textbox.scss'
+import '../assets/sass/textbox.scss'
 
-let TextBox = props => {
+const TextBox = props => {
 	return (
 		<input className="textbox" type="text" placeholder={props.hint} />
 	)

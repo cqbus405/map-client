@@ -1,28 +1,18 @@
-import React, { Component } from 'react';
-import '../sass/App.scss';
+import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
+import store from '../store/store'
+import Search from './Search'
+import MapContainer from './MapContainer'
 
-class App extends Component {
-  componentDidMount() {
-    var BMap = window.BMap
-    var map = new BMap.Map("container", {mapStyle: {style: 'dark'}})
-    var point = new BMap.Point(106.468834, 29.561632)
-    map.centerAndZoom(point, 15);
-  }
 
-  render() {
-    return (
-      <div className="App">
-        <div className="input-container">
-          <div className="input-inner-container">
-            <input className="input" type="search" placeholder="请输入起点" />
-            <div style={{height:'1px',width:'100%',backgroundColor:'black'}}></div>
-            <input className="input" type="search" placeholder="请输入终点" />
-          </div>
-        </div>
-        <div id="container"></div>
-      </div>
-    );
-  }
-}
+const App = () => (
+	<Provider store={store}>
+		<Router>
+			<Route path="/" exact component={Search} />
+			<Route path="/map" exact component={MapContainer} />
+		</Router>
+	</Provider>
+)
 
 export default App;

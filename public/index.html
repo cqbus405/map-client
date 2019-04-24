@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />  
+    <meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0,user-scalable=0">
     <meta name="theme-color" content="#000000" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
@@ -28,4 +28,26 @@
   <body>
     <div id="root"></div>
   </body>
+  <script type="text/javascript">
+    //检测是否是ios
+    var agent = navigator.userAgent.toLowerCase();        
+    if (agent.indexOf('iphone') >= 0 || agent.indexOf('ipad') >= 0) {
+      // 禁用双指缩放
+      document.documentElement.addEventListener('touchstart', function(event) {
+        if (event.touches.length > 1) {
+          event.preventDefault();
+        }
+      }, false);
+
+      // 禁用双击缩放
+      var lastTouchEnd = 0;  
+      document.addEventListener('touchend', function(event) {  
+        var now = (new Date()).getTime();  
+        if(now - lastTouchEnd <= 300){  
+          event.preventDefault();  
+        }  
+        lastTouchEnd = now;  
+      }, false)  
+    } 
+  </script>
 </html>

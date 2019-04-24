@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './sass/index.scss';
+import './assets/sass/index.scss';
 import App from './container/App';
-import Search from './container/Search'
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<Search />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
