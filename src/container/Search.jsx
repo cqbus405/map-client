@@ -5,6 +5,7 @@ import TextBox from '../component/TextBox'
 import DeleteButton from '../component/DeleteButton'
 import Header from '../component/Header'
 import SearchButton from '../component/SearchButton'
+import '../assets/sass/search.scss'
 // import { get } from '../action/actions'
 
 class Search extends Component {
@@ -47,7 +48,7 @@ class Search extends Component {
 		return (
 			<div>
 				<Header />
-				<div style={{padding: '12px'}}>
+				<div className="body-container">
 					<div>
 						<TextBox hint="请输入起点" />
 						<AddButton handleClick={this.handleAddButtonClick} />
