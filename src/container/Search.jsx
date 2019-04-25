@@ -6,7 +6,7 @@ import DeleteButton from '../component/DeleteButton'
 import Header from '../component/Header'
 import SearchButton from '../component/SearchButton'
 import '../assets/sass/search.scss'
-// import { get } from '../action/actions'
+import { get, getCurrentLocation } from '../action/actions'
 
 class Search extends Component {
 	constructor(props) {
@@ -16,6 +16,28 @@ class Search extends Component {
 		this.state = {
 			destinations: []
 		}
+	}
+
+	componentDidMount() {
+		const { dispatch } = this.props
+
+		const BMap = window.BMap
+		const geolocation = new BMap.Geolocation()
+		geolocation.getCurrentPosition(function(r) {
+			const status = this.getStatus()
+			if (status === 0) {
+				console.log(JSON.stringify(r))
+				const currentLocation = {
+					location: r.point,
+					province: r.address.province,
+					city: r.address.city,
+					district: r.address.district
+				}
+				dispatch(getCurrentLocation(currentLocation))
+			} else {
+				console.log(status)
+			}
+		})
 	}
 
 	handleAddButtonClick() {
@@ -50,7 +72,7 @@ class Search extends Component {
 				<Header />
 				<div className="body-container">
 					<div>
-						<TextBox hint="请输入起点" />
+						<TextBox hint={this.props.start} />
 						<AddButton handleClick={this.handleAddButtonClick} />
 					</div>
 					{this.state.destinations.map((destination, index) => {
@@ -69,7 +91,9 @@ class Search extends Component {
 }
 
 const mapStateToProps = state => {
-	return {}
+	return {
+		start: state.places.start ? '当前定位' :　''
+	}
 }
 
 export default connect(mapStateToProps)(Search)

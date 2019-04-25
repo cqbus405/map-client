@@ -1,5 +1,10 @@
 import { combineReducers } from 'redux'
-import { IS_FETCHING, HANDLE_RESPONSE, HANDLE_ERROR } from '../action/actions'
+import { 
+	IS_FETCHING, 
+	HANDLE_RESPONSE, 
+	HANDLE_ERROR,
+	GET_CURRENT_LOCATION
+} from '../action/actions'
 
 const http = (state = {
 	isFetching: false,
@@ -21,8 +26,22 @@ const http = (state = {
 	}
 }
 
+const places = (state = {
+	start: null,
+	points: []
+}, action) => {
+	switch (action.type) {
+		case GET_CURRENT_LOCATION:
+			return Object.assign({}, state, {start: action.currentLocation})
+
+		default:
+			return state
+	}
+}
+
 const reducer = combineReducers({
-	http
+	http,
+	places
 })
 
 export default reducer
