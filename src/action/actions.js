@@ -4,6 +4,7 @@ export const IS_FETCHING = 'IS_FETCHING'
 export const HANDLE_RESPONSE = 'HANDLE_RESPONSE'
 export const HANDLE_ERROR = 'HANDLE_ERROR'
 export const GET = 'GET'
+export const GET_CURRENT_LOCATION = 'GET_CURRENT_LOCATION'
 
 const isFetching = isFetching => {
 	return {
@@ -55,6 +56,13 @@ export const get = (url, values) => {
 					dispatch(handleResponse(data))
 				}
 			})
+	}
+}
+
+export const getCurrentLocation = currentLocation => {
+	return {
+		type: GET_CURRENT_LOCATION,
+		currentLocation
 	}
 }
 

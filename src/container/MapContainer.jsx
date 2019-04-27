@@ -4,7 +4,7 @@ import '../assets/sass/map.scss'
 class MapContainer extends Component {
   componentDidMount() {
     var BMap = window.BMap
-    var map = new BMap.Map("container", {mapStyle: {style: 'dark'}})
+    var map = new BMap.Map('container')
     var point = new BMap.Point(106.468834, 29.561632)
     map.centerAndZoom(point, 15)
   }
