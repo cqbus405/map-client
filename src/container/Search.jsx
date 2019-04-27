@@ -11,9 +11,11 @@ import { get, getCurrentLocation } from '../action/actions'
 class Search extends Component {
 	constructor(props) {
 		super(props)
+
 		this.handleAddButtonClick = this.handleAddButtonClick.bind(this)
 		this.handleDeleteButtonClick = this.handleDeleteButtonClick.bind(this)
 		this.handleInputChange = this.handleInputChange.bind(this)
+
 		this.state = {
 			destinations: [
 				"请输入目的地"
@@ -40,6 +42,7 @@ class Search extends Component {
 				dispatch(getCurrentLocation(currentLocation))
 			} else {
 				console.log(status)
+				alert('获取当前位置失败')
 			}
 		})
 	}
@@ -76,7 +79,8 @@ class Search extends Component {
 	}
 
 	handleInputChange(event) {
-		console.log(event.target)
+		console.log(event.target.id)
+		console.log(event.target.value)
 	}
 
 	render() {
@@ -85,13 +89,13 @@ class Search extends Component {
 				<Header />
 				<div className="body-container">
 					<div>
-						<TextBox id={`start`} hint={this.props.start} handleOnChange={e => this.handleInputChange(e)} />
+						<TextBox id="start" hint={this.props.start} handleOnChange={e => this.handleInputChange(e)} />
 						<AddButton handleClick={this.handleAddButtonClick} />
 					</div>
 					{this.state.destinations.map((destination, index) => {
 						return (
 							<div key={index}>
-								<TextBox id={`destination${index}`} hint={destination} handleOnChange={e => this.handleInputChange(e)} />
+								<TextBox id={`point_${index}`} hint={destination} handleOnChange={e => this.handleInputChange(e)} />
 								<DeleteButton handleClick={e => this.handleDeleteButtonClick(e, index)} />
 							</div>
 						)
@@ -105,7 +109,7 @@ class Search extends Component {
 
 const mapStateToProps = state => {
 	return {
-		start: state.places.start ? '当前定位' :　''
+		start: state.places.start ? '当前定位' :　'请输入起点'
 	}
 }
 
