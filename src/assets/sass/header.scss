@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans+SC&subset=chinese-simplified');
+
 .header {
 	padding: 18px;
 	font-size: .9rem;
 	color: rgba(0, 0, 0, .87);
+	font-family: 'Noto Sans SC', sans-serif;
 	box-shadow: 0 1px 10px lightgrey;
 	background-color: white;
 }

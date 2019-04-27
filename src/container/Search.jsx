@@ -13,9 +13,18 @@ class Search extends Component {
 		super(props)
 		this.handleAddButtonClick = this.handleAddButtonClick.bind(this)
 		this.handleDeleteButtonClick = this.handleDeleteButtonClick.bind(this)
+		this.handleInputChange = this.handleInputChange.bind(this)
 		this.state = {
-			destinations: []
+			destinations: [
+				"请输入目的地"
+			],
+			start: {}
 		}
+	}
+
+	handleInputChange(event) {
+		console.log(event.target)
+		// console.log(event.target.value)
 	}
 
 	handleAddButtonClick() {
@@ -29,6 +38,13 @@ class Search extends Component {
 		// dispatch(get('http://39.98.198.86:3000/locations', values))
 
 		let destinations = this.state.destinations
+
+		/*最多包含5个目的地*/
+		if (destinations.length === 5) {
+			alert('最多包含五个目的地')
+			return
+		}
+
 		destinations.push("请输入目的地")
 		this.setState({
 			destinations
@@ -38,6 +54,13 @@ class Search extends Component {
 	handleDeleteButtonClick(event, index) {
 		console.log(index)
 		let destinations = this.state.destinations
+
+		/*最少包含一个目的地*/
+		if (destinations.length === 1) {
+			alert('最少一个目的地')
+			return
+		}
+
 		destinations.splice(index, 1)
 		this.setState({
 			destinations
@@ -50,13 +73,13 @@ class Search extends Component {
 				<Header />
 				<div className="body-container">
 					<div>
-						<TextBox hint="请输入起点" />
+						<TextBox id={`start`} hint="请输入起点" handleOnChange={e => this.handleInputChange(e)} />
 						<AddButton handleClick={this.handleAddButtonClick} />
 					</div>
 					{this.state.destinations.map((destination, index) => {
 						return (
 							<div key={index}>
-								<TextBox hint={destination} />
+								<TextBox id={`destination${index}`} hint={destination} handleOnChange={e => this.handleInputChange(e)} />
 								<DeleteButton handleClick={e => this.handleDeleteButtonClick(e, index)} />
 							</div>
 						)

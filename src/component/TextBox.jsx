@@ -3,7 +3,7 @@ import '../assets/sass/textbox.scss'
 
 const TextBox = props => {
 	return (
-		<input className="textbox" type="text" placeholder={props.hint} />
+		<input id={props.id} className="textbox" type="text" placeholder={props.hint} onChange={props.handleOnChange} />
 	)
 }
 
