@@ -5,8 +5,13 @@ import TextBox from '../component/TextBox'
 import DeleteButton from '../component/DeleteButton'
 import Header from '../component/Header'
 import SearchButton from '../component/SearchButton'
+import SearchList from '../component/SearchList'
 import '../assets/sass/search.scss'
-import { get, getCurrentLocation } from '../action/actions'
+import { 
+	get, 
+	getCurrentLocation, 
+	clearPlaces 
+} from '../action/actions'
 
 class Search extends Component {
 	constructor(props) {
@@ -14,13 +19,18 @@ class Search extends Component {
 
 		this.handleAddButtonClick = this.handleAddButtonClick.bind(this)
 		this.handleDeleteButtonClick = this.handleDeleteButtonClick.bind(this)
+		this.handleInputClick = this.handleInputClick.bind(this)
+		this.handleBackBtnClick = this.handleBackBtnClick.bind(this)
 		this.handleInputChange = this.handleInputChange.bind(this)
+		this.handlePlaceClick = this.handlePlaceClick.bind(this)
 
 		this.state = {
 			destinations: [
 				"请输入目的地"
 			],
-			start: {}
+			start: {},
+			display: 'none',
+			index: 0
 		}
 	}
 
@@ -42,7 +52,7 @@ class Search extends Component {
 				dispatch(getCurrentLocation(currentLocation))
 			} else {
 				console.log(status)
-				alert('获取当前位置失败')
+				// alert('获取当前位置失败')
 			}
 		})
 	}
@@ -78,30 +88,87 @@ class Search extends Component {
 		})
 	}
 
+	handleBackBtnClick() {
+		this.setState({
+			display: 'none',
+			index: 0
+		})
+
+		const { dispatch } = this.props
+		dispatch(clearPlaces())
+	}
+
+	handleInputClick(event) {
+		let inputId = event.target.id
+
+		this.setState({
+			display: 'block',
+			index: inputId
+		})
+	}
+
+	handlePlaceClick(event) {
+		const id = event.target.id
+		const { places } = this.props
+		const place = places[id]
+		const inputId = this.state.index
+		const inputIdPair = inputId.split('_')
+		const index = inputIdPair[1]
+
+		if (parseInt(index) === 0) {
+			this.setState({
+				start: place
+			})
+		} else {
+			const destinations = this.state.destinations
+			destinations[index - 1] = place
+			this.setState({
+				destinations
+			})
+		}
+		console.log(this.state)
+	}
+
 	handleInputChange(event) {
-		console.log(event.target.id)
-		console.log(event.target.value)
+		const { dispatch } = this.props
+
+		let place = event.target.value
+
+		if (!place) {
+			dispatch(clearPlaces())
+			return
+		}
+
+		const url = 'http://39.98.198.86:3000/locations'
+		dispatch(get(url, {
+			region: '重庆',
+			place
+		}))
 	}
 
 	render() {
 		return (
-			<div>
-				<Header />
-				<div className="body-container">
-					<div>
-						<TextBox id="start" hint={this.props.start} handleOnChange={e => this.handleInputChange(e)} />
-						<AddButton handleClick={this.handleAddButtonClick} />
+			<div style={{height: '100%'}}>
+				<div>
+					<Header />
+					<div className="body-container">
+						<div>
+							<TextBox id="point_0" hint={this.state.start.name ? this.state.start.name : this.props.start} handleInputClick={this.handleInputClick} />
+							<AddButton handleClick={this.handleAddButtonClick} />
+						</div>
+						{this.state.destinations.map((destination, index) => {
+							return (
+								<div key={index}>
+									<TextBox id={`point_${index + 1}`} hint={destination.name ? destination.name : destination} handleInputClick={this.handleInputClick} />
+									<DeleteButton handleClick={e => this.handleDeleteButtonClick(e, index)} />
+								</div>
+							)
+						})}
+						<SearchButton />
 					</div>
-					{this.state.destinations.map((destination, index) => {
-						return (
-							<div key={index}>
-								<TextBox id={`point_${index}`} hint={destination} handleOnChange={e => this.handleInputChange(e)} />
-								<DeleteButton handleClick={e => this.handleDeleteButtonClick(e, index)} />
-							</div>
-						)
-					})}
-					<SearchButton />
 				</div>
+				<SearchList display={this.state.display} handleBackBtnClick={this.handleBackBtnClick} handleInputChange={this.handleInputChange} places={this.props.places} 
+				handlePlaceClick={this.handlePlaceClick} />
 			</div>
 		)
 	}
@@ -109,7 +176,8 @@ class Search extends Component {
 
 const mapStateToProps = state => {
 	return {
-		start: state.places.start ? '当前定位' :　'请输入起点'
+		start: state.places.start ? '当前定位' :　'请输入起点',
+		places: state.http.data
 	}
 }
 

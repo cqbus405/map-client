@@ -5,6 +5,7 @@ export const HANDLE_RESPONSE = 'HANDLE_RESPONSE'
 export const HANDLE_ERROR = 'HANDLE_ERROR'
 export const GET = 'GET'
 export const GET_CURRENT_LOCATION = 'GET_CURRENT_LOCATION'
+export const CLEAR_PLACES = 'CLEAR_PLACES'
 
 const isFetching = isFetching => {
 	return {
@@ -66,3 +67,8 @@ export const getCurrentLocation = currentLocation => {
 	}
 }
 
+export const clearPlaces = () => {
+	return {
+		type: CLEAR_PLACES
+	}
+}

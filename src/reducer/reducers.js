@@ -3,7 +3,8 @@ import {
 	IS_FETCHING, 
 	HANDLE_RESPONSE, 
 	HANDLE_ERROR,
-	GET_CURRENT_LOCATION
+	GET_CURRENT_LOCATION,
+	CLEAR_PLACES
 } from '../action/actions'
 
 const http = (state = {
@@ -20,6 +21,9 @@ const http = (state = {
 
 		case HANDLE_ERROR:
 			return Object.assign({}, state, {error: action.error})
+
+		case CLEAR_PLACES:
+			return Object.assign({}, state, {data: []})
 
 		default:
 			return state
