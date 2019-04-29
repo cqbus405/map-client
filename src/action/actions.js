@@ -29,7 +29,7 @@ const handleError = error => {
 }
 
 export const get = (url, values) => {
-	return dispatch => {
+	return (dispatch) => {
 		dispatch(isFetching(true))
 
 		let queryParam = '?'

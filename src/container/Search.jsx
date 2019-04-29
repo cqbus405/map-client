@@ -88,7 +88,7 @@ class Search extends Component {
 		})
 	}
 
-	handleBackBtnClick() {
+	handleBackBtnClick(event) {
 		this.setState({
 			display: 'none',
 			index: 0
@@ -126,7 +126,8 @@ class Search extends Component {
 				destinations
 			})
 		}
-		console.log(this.state)
+		
+		this.handleBackBtnClick()
 	}
 
 	handleInputChange(event) {
@@ -137,13 +138,13 @@ class Search extends Component {
 		if (!place) {
 			dispatch(clearPlaces())
 			return
+		} else {
+			const url = 'http://39.98.198.86:3000/locations'
+			dispatch(get(url, {
+				region: '重庆',
+				place
+			}))
 		}
-
-		const url = 'http://39.98.198.86:3000/locations'
-		dispatch(get(url, {
-			region: '重庆',
-			place
-		}))
 	}
 
 	render() {
@@ -177,7 +178,8 @@ class Search extends Component {
 const mapStateToProps = state => {
 	return {
 		start: state.places.start ? '当前定位' :　'请输入起点',
-		places: state.http.data
+		places: state.http.data,
+		isFetching: state.http.isFetching
 	}
 }
 
