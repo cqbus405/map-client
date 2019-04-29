@@ -5,8 +5,9 @@ import TextBox from '../component/TextBox'
 import DeleteButton from '../component/DeleteButton'
 import Header from '../component/Header'
 import SearchButton from '../component/SearchButton'
-import SearchList from '../component/SearchList'
 import '../assets/sass/search.scss'
+import '../assets/sass/searchlist.scss'
+
 import { 
 	get, 
 	getCurrentLocation, 
@@ -25,13 +26,13 @@ class Search extends Component {
 		this.handlePlaceClick = this.handlePlaceClick.bind(this)
 
 		this.state = {
-			destinations: [
-				"请输入目的地"
-			],
+			destinations: ['请输入目的地'],
 			start: {},
 			display: 'none',
 			index: 0
 		}
+
+		this.inputBoxRef = React.createRef()
 	}
 
 	componentDidMount() {
@@ -94,6 +95,8 @@ class Search extends Component {
 			index: 0
 		})
 
+		this.inputBoxRef.current.value = ''
+
 		const { dispatch } = this.props
 		dispatch(clearPlaces())
 	}
@@ -105,6 +108,18 @@ class Search extends Component {
 			display: 'block',
 			index: inputId
 		})
+
+		const key = inputId.split('_')[1] - 1
+		let value = null
+
+		if (key === -1) {
+			value = this.state.start
+		} else {
+			value = this.state.destinations[key]
+		}
+		console.log(`value`, value)
+
+		this.inputBoxRef.current.value = value.name ? value.name : ''
 	}
 
 	handlePlaceClick(event) {
@@ -168,8 +183,17 @@ class Search extends Component {
 						<SearchButton />
 					</div>
 				</div>
-				<SearchList display={this.state.display} handleBackBtnClick={this.handleBackBtnClick} handleInputChange={this.handleInputChange} places={this.props.places} 
-				handlePlaceClick={this.handlePlaceClick} />
+				<div className="searchlist" style={{display: `${this.state.display}`}}>
+					<div className="backbtn" onClick={this.handleBackBtnClick}></div>
+					<input type="text" placeholder="请输入地址" onChange={this.handleInputChange} ref={this.inputBoxRef} />
+					<ul>
+						{
+							this.props.places ? this.props.places.map((place, index) => {
+								return <li key={index} id={index} onClick={this.handlePlaceClick}>{place.name + ' ' + place.district + ' ' + place.city + ' ' + place.province}</li>
+							}) : ''
+						}
+					</ul>
+				</div>
 			</div>
 		)
 	}
