@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import AddButton from '../component/AddButton'
 import TextBox from '../component/TextBox'
 import DeleteButton from '../component/DeleteButton'
@@ -147,7 +148,7 @@ class Search extends Component {
 	}
 
 	handleSearchBtnClick() {
-		const { dispatch } = this.props
+		const { dispatch, isFetching } = this.props
 
 		const startPoint = this.state.start
 		if (Object.keys(startPoint).length === 0) {
@@ -170,6 +171,9 @@ class Search extends Component {
 
 		const url = 'http://39.98.198.86:3000/routes'
 		dispatch(get(url, null, bodyToSend, 'POST'))
+		if (!isFetching) {
+			this.props.history.push('/routes')
+		}
 	}
 
 	handleInputChange(event) {
