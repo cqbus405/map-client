@@ -24,6 +24,7 @@ class Search extends Component {
 		this.handleBackBtnClick = this.handleBackBtnClick.bind(this)
 		this.handleInputChange = this.handleInputChange.bind(this)
 		this.handlePlaceClick = this.handlePlaceClick.bind(this)
+		this.handleSearchBtnClick = this.handleSearchBtnClick.bind(this)
 
 		this.state = {
 			destinations: ['请输入目的地'],
@@ -145,6 +146,32 @@ class Search extends Component {
 		this.handleBackBtnClick()
 	}
 
+	handleSearchBtnClick() {
+		const { dispatch } = this.props
+
+		const startPoint = this.state.start
+		if (Object.keys(startPoint).length === 0) {
+			alert('必须输入起点')
+			return
+		}
+
+		const destinationsPoints = this.state.destinations
+		if (destinationsPoints.length === 1 && destinationsPoints[0] === '请输入目的地') {
+			alert('至少输入一个目的地')
+			return
+		}
+
+		const bodyToSend = {
+			start: startPoint,
+			points: destinationsPoints
+		}
+
+		console.log(JSON.stringify(bodyToSend))
+
+		const url = 'http://39.98.198.86:3000/routes'
+		dispatch(get(url, null, bodyToSend, 'POST'))
+	}
+
 	handleInputChange(event) {
 		const { dispatch } = this.props
 
@@ -180,7 +207,7 @@ class Search extends Component {
 								</div>
 							)
 						})}
-						<SearchButton />
+						<SearchButton handleSearchBtnClick={this.handleSearchBtnClick} />
 					</div>
 				</div>
 				<div className="searchlist" style={{display: `${this.state.display}`}}>

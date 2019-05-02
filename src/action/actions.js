@@ -28,7 +28,7 @@ const handleError = error => {
 	}
 }
 
-export const get = (url, values) => {
+export const get = (url, values, body, method) => {
 	return (dispatch) => {
 		dispatch(isFetching(true))
 
@@ -42,10 +42,34 @@ export const get = (url, values) => {
 
 		let endPoint = url + queryParam
 
-		return fetch(endPoint)
+		let requestMethod = method ? method : 'GET'
+
+		let options = {
+			method: requestMethod
+		}
+
+		if (body) {
+			options.headers = {
+				"Content-Type": "application/json"
+			}
+
+			options.body = JSON.stringify(body)
+		}
+
+		return fetch(endPoint, options)
 			.then(response => {
 				dispatch(isFetching(false))
-				return response.json()
+				console.log(response)
+				if (response.ok) {
+					return response.json()
+				} else {
+					let code = response.status
+					let errmsg = response.statusText
+					return {
+						code,
+						msg: errmsg
+					}
+				}
 			})
 			.then(json => {
 				let code = json.code
