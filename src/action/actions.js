@@ -6,6 +6,9 @@ export const HANDLE_ERROR = 'HANDLE_ERROR'
 export const GET = 'GET'
 export const GET_CURRENT_LOCATION = 'GET_CURRENT_LOCATION'
 export const CLEAR_PLACES = 'CLEAR_PLACES'
+export const ADD_PLACE = 'ADD_PLACE'
+export const DELETE_PLACE = 'DELETE_PLACE'
+export const CHOOSE_PLACE = 'CHOOSE_PLACE'
 
 const isFetching = isFetching => {
 	return {
@@ -14,10 +17,11 @@ const isFetching = isFetching => {
 	}
 }
 
-const handleResponse = data => {
+const handleResponse = (data, type) => {
 	return {
 		type: HANDLE_RESPONSE,
-		data
+		data,
+		dataType: type
 	}
 }
 
@@ -28,7 +32,7 @@ const handleError = error => {
 	}
 }
 
-export const get = (url, values, body, method) => {
+export const get = (url, values, body, method, type) => {
 	return (dispatch) => {
 		dispatch(isFetching(true))
 
@@ -59,7 +63,6 @@ export const get = (url, values, body, method) => {
 		return fetch(endPoint, options)
 			.then(response => {
 				dispatch(isFetching(false))
-				console.log(response)
 				if (response.ok) {
 					return response.json()
 				} else {
@@ -78,9 +81,30 @@ export const get = (url, values, body, method) => {
 					dispatch(handleError(code + ' ' + errmsg))
 				} else {
 					let data = json.data
-					dispatch(handleResponse(data))
+					dispatch(handleResponse(data, type))
 				}
 			})
+	}
+}
+
+export const addPlace = () => {
+	return {
+		type: ADD_PLACE
+	}
+}
+
+export const deletePlace = index => {
+	return {
+		type: DELETE_PLACE,
+		index
+	}
+}
+
+export const choosePlace = (index, place) => {
+	return {
+		type: CHOOSE_PLACE,
+		index,
+		place
 	}
 }
 

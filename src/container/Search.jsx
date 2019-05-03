@@ -12,7 +12,10 @@ import '../assets/sass/searchlist.scss'
 import { 
 	get, 
 	getCurrentLocation, 
-	clearPlaces 
+	clearPlaces,
+	addPlace,
+	deletePlace,
+	choosePlace
 } from '../action/actions'
 
 class Search extends Component {
@@ -28,8 +31,6 @@ class Search extends Component {
 		this.handleSearchBtnClick = this.handleSearchBtnClick.bind(this)
 
 		this.state = {
-			destinations: ['请输入目的地'],
-			start: {},
 			display: 'none',
 			index: 0
 		}
@@ -38,60 +39,124 @@ class Search extends Component {
 	}
 
 	componentDidMount() {
-		const { dispatch } = this.props
+		// const { dispatch } = this.props
 
-		const BMap = window.BMap
-		const geolocation = new BMap.Geolocation()
-		geolocation.getCurrentPosition(function(r) {
-			const status = this.getStatus()
-			if (status === 0) {
-				console.log(JSON.stringify(r))
-				const currentLocation = {
-					location: r.point,
-					province: r.address.province,
-					city: r.address.city,
-					district: r.address.district
-				}
-				dispatch(getCurrentLocation(currentLocation))
-			} else {
-				console.log(status)
-				// alert('获取当前位置失败')
-			}
-		})
+		// const BMap = window.BMap
+		// const geolocation = new BMap.Geolocation()
+		// geolocation.getCurrentPosition(function(r) {
+		// 	const status = this.getStatus()
+		// 	if (status === 0) {
+		// 		console.log(JSON.stringify(r))
+		// 		const currentLocation = {
+		// 			location: r.point,
+		// 			province: r.address.province,
+		// 			city: r.address.city,
+		// 			district: r.address.district
+		// 		}
+		// 		dispatch(getCurrentLocation(currentLocation))
+		// 	} else {
+		// 		console.log(status)
+		// 	}
+		// })
 	}
 
-	handleAddButtonClick() {
-		let destinations = this.state.destinations
+	//---------------------------------------------Events on the Main Container---------------------------------------------------
 
-		/*最多包含5个目的地*/
-		if (destinations.length === 5) {
-			alert('最多包含五个目的地')
+	/**
+	 * Handle onclick event of the Add Button
+	 * @Author   q
+	 * @DateTime 2019-05-03T23:39:01+0800
+	 */
+	handleAddButtonClick() {
+		const { places, dispatch } = this.props
+
+		if (places.length === 8) {
+			alert('最多包含七个目的地')
 			return
 		}
 
-		destinations.push("请输入目的地")
-		this.setState({
-			destinations
-		})
+		dispatch(addPlace())
 	}
 
+	/**
+	 * Handle onclick event of the Delete Button
+	 * @Author   q
+	 * @DateTime 2019-05-03T23:39:55+0800
+	 * @param    event the event object
+	 * @param    index the index of the clicked item in the destinations array
+	 */
 	handleDeleteButtonClick(event, index) {
 		console.log(index)
-		let destinations = this.state.destinations
 
-		/*最少包含一个目的地*/
-		if (destinations.length === 1) {
+		const { places, dispatch } = this.props
+
+		if (places.length === 2) {
 			alert('最少一个目的地')
-			return
+			return			
 		}
 
-		destinations.splice(index, 1)
+		dispatch(deletePlace(index))
+	}
+
+	/**
+	 * Handle onclick event of the input
+	 * @Author   q
+	 * @DateTime 2019-05-03T23:44:41+0800
+	 * @param    event the event object
+	 */
+	handleInputClick(event, index) {
+		const { places } = this.props
+
+		const place = places[index]
+
+		this.inputBoxRef.current.value = place && place.name ? place.name : ''
+
 		this.setState({
-			destinations
+			display: 'block',
+			index
 		})
 	}
 
-	handleBackBtnClick(event) {
+	/**
+	 * Handle the onclick event of the Search Button
+	 * @Author   q
+	 * @DateTime 2019-05-03T23:46:52+0800
+	 */
+	handleSearchBtnClick() {
+		const { dispatch, isFetching, places } = this.props
+
+		for (let i = 0; i < places.length; ++i) {
+			let place = places[i]
+			if (JSON.stringify(place) === '{}') {
+				alert('请完成地址信息')
+				return
+			}
+		}
+
+		const startPoint = places[0]
+		const destinationsPoints = places.slice(1, places.length)
+
+		const bodyToSend = {
+			start: startPoint,
+			points: destinationsPoints
+		}
+
+		const url = 'http://39.98.198.86:3000/routes'
+		dispatch(get(url, null, bodyToSend, 'POST', 'routes'))
+		if (!isFetching) {
+			this.props.history.push('/routes')
+		}
+	}
+
+	//---------------------------------------------Events on the Search Page---------------------------------------------------------
+
+	/**
+	 * Handle onclick event of the Back Button
+	 * @Author   q
+	 * @DateTime 2019-05-03T23:50:56+0800
+	 * @param    event the event object
+	 */
+	handleBackBtnClick() {
 		this.setState({
 			display: 'none',
 			index: 0
@@ -103,79 +168,12 @@ class Search extends Component {
 		dispatch(clearPlaces())
 	}
 
-	handleInputClick(event) {
-		let inputId = event.target.id
-
-		this.setState({
-			display: 'block',
-			index: inputId
-		})
-
-		const key = inputId.split('_')[1] - 1
-		let value = null
-
-		if (key === -1) {
-			value = this.state.start
-		} else {
-			value = this.state.destinations[key]
-		}
-		console.log(`value`, value)
-
-		this.inputBoxRef.current.value = value.name ? value.name : ''
-	}
-
-	handlePlaceClick(event) {
-		const id = event.target.id
-		const { places } = this.props
-		const place = places[id]
-		const inputId = this.state.index
-		const inputIdPair = inputId.split('_')
-		const index = inputIdPair[1]
-
-		if (parseInt(index) === 0) {
-			this.setState({
-				start: place
-			})
-		} else {
-			const destinations = this.state.destinations
-			destinations[index - 1] = place
-			this.setState({
-				destinations
-			})
-		}
-		
-		this.handleBackBtnClick()
-	}
-
-	handleSearchBtnClick() {
-		const { dispatch, isFetching } = this.props
-
-		const startPoint = this.state.start
-		if (Object.keys(startPoint).length === 0) {
-			alert('必须输入起点')
-			return
-		}
-
-		const destinationsPoints = this.state.destinations
-		if (destinationsPoints.length === 1 && destinationsPoints[0] === '请输入目的地') {
-			alert('至少输入一个目的地')
-			return
-		}
-
-		const bodyToSend = {
-			start: startPoint,
-			points: destinationsPoints
-		}
-
-		console.log(JSON.stringify(bodyToSend))
-
-		const url = 'http://39.98.198.86:3000/routes'
-		dispatch(get(url, null, bodyToSend, 'POST'))
-		if (!isFetching) {
-			this.props.history.push('/routes')
-		}
-	}
-
+	/**
+	 * Handle onchange event of the Input
+	 * @Author   q
+	 * @DateTime 2019-05-03T23:54:23+0800
+	 * @param    event event object
+	 */
 	handleInputChange(event) {
 		const { dispatch } = this.props
 
@@ -189,8 +187,26 @@ class Search extends Component {
 			dispatch(get(url, {
 				region: '重庆',
 				place
-			}))
+			}, null, 'GET', 'places'))
 		}
+	}
+
+	/**
+	 * Handle onclick event of the Input
+	 * @Author   q
+	 * @DateTime 2019-05-03T23:53:02+0800
+	 * @param    event event object
+	 */
+	handlePlaceClick(event) {
+		const { fetchedData, dispatch } = this.props
+		const id = event.target.id
+
+		const place = (fetchedData.places)[id]
+		const index = this.state.index
+
+		dispatch(choosePlace(index, place))
+		
+		this.handleBackBtnClick()
 	}
 
 	render() {
@@ -199,15 +215,21 @@ class Search extends Component {
 				<div>
 					<Header />
 					<div className="body-container">
-						<div>
-							<TextBox id="point_0" hint={this.state.start.name ? this.state.start.name : this.props.start} handleInputClick={this.handleInputClick} />
-							<AddButton handleClick={this.handleAddButtonClick} />
-						</div>
-						{this.state.destinations.map((destination, index) => {
+						{this.props.places.map((place, index) => {
 							return (
 								<div key={index}>
-									<TextBox id={`point_${index + 1}`} hint={destination.name ? destination.name : destination} handleInputClick={this.handleInputClick} />
-									<DeleteButton handleClick={e => this.handleDeleteButtonClick(e, index)} />
+									{	
+										index === 0 ? 
+											<TextBox hint={place.name ? place.name : '请输入起点'} handleInputClick={e => this.handleInputClick(e, index)} />
+										:
+											<TextBox hint={place.name ? place.name : '请输入目的地'} handleInputClick={e => this.handleInputClick(e, index)} />
+									}
+									{
+										index === 0 ? 
+											<AddButton handleClick={this.handleAddButtonClick} />
+										:
+											<DeleteButton handleClick={e => this.handleDeleteButtonClick(e, index)} />
+									}
 								</div>
 							)
 						})}
@@ -219,7 +241,7 @@ class Search extends Component {
 					<input type="text" placeholder="请输入地址" onChange={this.handleInputChange} ref={this.inputBoxRef} />
 					<ul>
 						{
-							this.props.places ? this.props.places.map((place, index) => {
+							this.props.fetchedData && this.props.fetchedData.places ? this.props.fetchedData.places.map((place, index) => {
 								return <li key={index} id={index} onClick={this.handlePlaceClick}>{place.name + ' ' + place.district + ' ' + place.city + ' ' + place.province}</li>
 							}) : ''
 						}
@@ -233,7 +255,8 @@ class Search extends Component {
 const mapStateToProps = state => {
 	return {
 		start: state.places.start ? '当前定位' :　'请输入起点',
-		places: state.http.data,
+		places: state.places,
+		fetchedData: state.http.data,
 		isFetching: state.http.isFetching
 	}
 }

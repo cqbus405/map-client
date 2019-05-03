@@ -10,7 +10,7 @@ class Routes extends Component {
 				<ul>
 					{routes ? routes.map((item, index) => {
 						let route = item.routes[0]
-						return <li>{`距离:${route.distance} 时间:${route.duration}`}</li>
+						return <li key={index}>{`距离:${route.distance}m 时间:${route.duration}s`}</li>
 					}) : ''}
 				</ul>
 			</div>
@@ -20,7 +20,7 @@ class Routes extends Component {
 
 const mapStateToProps = state => {
 	return {
-		routes: state.http.data
+		routes: state.http.data.routes
 	}
 }
 
