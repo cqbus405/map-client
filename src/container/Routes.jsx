@@ -9,8 +9,13 @@ class Routes extends Component {
 			<div>
 				<ul>
 					{routes ? routes.map((item, index) => {
-						let route = item.routes[0]
-						return <li key={index}>{`距离:${route.distance}m 时间:${route.duration}s`}</li>
+						let route = item
+						return (
+							<div key={index}>
+								<li></li>
+								<li>{`距离:${route.distance}m 时间:${route.duration}s`}</li>
+							</div>
+						)
 					}) : ''}
 				</ul>
 			</div>
