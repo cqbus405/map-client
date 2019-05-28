@@ -32,7 +32,7 @@ const handleError = error => {
 	}
 }
 
-export const get = (url, values, body, method, type) => {
+export const httpRequest = (url, values, body, method, type) => {
 	return (dispatch) => {
 		dispatch(isFetching(true))
 
@@ -108,7 +108,7 @@ export const choosePlace = (index, place) => {
 	}
 }
 
-export const getCurrentLocation = currentLocation => {
+export const fetchCurrentLocation = currentLocation => {
 	return {
 		type: GET_CURRENT_LOCATION,
 		currentLocation
