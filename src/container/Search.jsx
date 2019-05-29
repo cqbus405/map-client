@@ -10,7 +10,7 @@ import '../assets/sass/search.scss'
 import '../assets/sass/searchlist.scss'
 
 import { 
-	get, 
+	httpRequest, 
 	getCurrentLocation, 
 	clearPlaces,
 	addPlace,
@@ -146,7 +146,7 @@ class Search extends Component {
 		}
 
 		const url = 'http://39.98.198.86:3000/routes'
-		dispatch(get(url, null, bodyToSend, 'POST', 'routes'))
+		dispatch(httpRequest(url, null, bodyToSend, 'POST', 'routes'))
 		if (!isFetching) {
 			this.props.history.push('/routes')
 		}
@@ -191,7 +191,7 @@ class Search extends Component {
 			return
 		} else {
 			const url = 'http://39.98.198.86:3000/locations'
-			dispatch(get(url, {
+			dispatch(httpRequest(url, {
 				region: '重庆',
 				place
 			}, null, 'GET', 'places'))

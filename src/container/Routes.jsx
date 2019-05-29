@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import '../assets/sass/routes.scss'
 
 class Routes extends Component {
 	render() {
@@ -7,13 +8,12 @@ class Routes extends Component {
 
 		return (
 			<div>
-				<ul>
+				<ul className="routes-container">
 					{routes ? routes.map((item, index) => {
-						let route = item
 						return (
 							<div key={index}>
-								<li></li>
-								<li>{`距离:${route.distance}m 时间:${route.duration}s`}</li>
+								<li className="route">{`${item.origin.name} - ${item.destination.name}`}</li>
+								<li className="detail">{`距离:${(parseFloat(item.distance) / 1000).toFixed(2)}公里 时间:${(parseFloat(item.duration) / 60).toFixed(1)}分钟 ${item.tag}`}</li>
 							</div>
 						)
 					}) : ''}
