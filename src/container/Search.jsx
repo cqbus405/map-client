@@ -32,6 +32,7 @@ class Search extends Component {
 
 		this.state = {
 			display: 'none',
+			focus: false,
 			index: 0
 		}
 
@@ -113,8 +114,11 @@ class Search extends Component {
 
 		this.setState({
 			display: 'block',
+			focus: true,
 			index
 		})
+
+		console.log('input click', this.state.focus)
 	}
 
 	/**
@@ -159,6 +163,7 @@ class Search extends Component {
 	handleBackBtnClick() {
 		this.setState({
 			display: 'none',
+			focus: false,
 			index: 0
 		})
 
@@ -166,6 +171,8 @@ class Search extends Component {
 
 		const { dispatch } = this.props
 		dispatch(clearPlaces())
+
+		console.log(this.state.focus)
 	}
 
 	/**
@@ -238,7 +245,7 @@ class Search extends Component {
 				</div>
 				<div className="searchlist" style={{display: `${this.state.display}`}}>
 					<div className="backbtn" onClick={this.handleBackBtnClick}></div>
-					<input type="text" placeholder="请输入地址" onChange={this.handleInputChange} ref={this.inputBoxRef} />
+					<input type="text" placeholder="请输入地址" onChange={this.handleInputChange} ref={this.inputBoxRef} autoFocus={this.state.focus} />
 					<ul>
 						{
 							this.props.fetchedData && this.props.fetchedData.places ? this.props.fetchedData.places.map((place, index) => {
