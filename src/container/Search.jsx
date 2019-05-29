@@ -117,8 +117,6 @@ class Search extends Component {
 			focus: true,
 			index
 		})
-
-		console.log('input click', this.state.focus)
 	}
 
 	/**
@@ -171,8 +169,6 @@ class Search extends Component {
 
 		const { dispatch } = this.props
 		dispatch(clearPlaces())
-
-		console.log(this.state.focus)
 	}
 
 	/**
@@ -206,7 +202,7 @@ class Search extends Component {
 	 */
 	handlePlaceClick(event) {
 		const { fetchedData, dispatch } = this.props
-		const id = event.target.id
+		const id = event.currentTarget.id
 
 		const place = (fetchedData.places)[id]
 		const index = this.state.index
@@ -244,12 +240,21 @@ class Search extends Component {
 					</div>
 				</div>
 				<div className="searchlist" style={{display: `${this.state.display}`}}>
-					<div className="backbtn" onClick={this.handleBackBtnClick}></div>
-					<input type="text" placeholder="请输入地址" onChange={this.handleInputChange} ref={this.inputBoxRef} autoFocus={this.state.focus} />
+					<div>
+						<div className="backbtn" onClick={this.handleBackBtnClick}></div>
+						<input type="text" placeholder="请输入地址" onChange={this.handleInputChange} ref={this.inputBoxRef} autoFocus={this.state.focus} />
+					</div>
 					<ul>
 						{
 							this.props.fetchedData && this.props.fetchedData.places ? this.props.fetchedData.places.map((place, index) => {
-								return <li key={index} id={index} onClick={this.handlePlaceClick}>{place.name + ' ' + place.district + ' ' + place.city + ' ' + place.province}</li>
+								return (
+									<li key={index} id={index} onClick={this.handlePlaceClick}>
+										<div className="list-container">
+											<div className="list-item list-item-title">{place.name}</div>
+											<div className="list-item list-item-detail">{place.district + ' ' + place.city + ' ' + place.province}</div>
+										</div>
+									</li>
+								)
 							}) : ''
 						}
 					</ul>

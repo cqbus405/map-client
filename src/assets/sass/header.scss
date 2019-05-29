@@ -1,10 +1,25 @@
-@import url('https://fonts.googleapis.com/css?family=ZCOOL+XiaoWei&subset=chinese-simplified');
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script&display=swap');
 
 .header {
-	padding: 18px;
-	font-size: 1.2rem;
-	font-family: 'ZCOOL XiaoWei', serif;
+	height: 24px;
+	padding: 16px;
 	color: rgba(0, 0, 0, .87);
-	box-shadow: 0 1px 10px lightgrey;
+	// box-shadow: 0 3px 5px lightgrey;
 	background-color: white;
+
+	img {
+		height: 24px;
+		width: 24px;
+		margin-right: 32px;
+	}
+
+	span {
+		display: inline-block;
+		position: relative;
+		line-height: 24px;
+		vertical-align: top;
+		font-family: 'Dancing Script', cursive;
+		font-size: 20px;
+		color: rgba(0, 0, 0, .87);
+	}
 }

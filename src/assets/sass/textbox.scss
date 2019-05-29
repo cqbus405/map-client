@@ -1,11 +1,19 @@
 .textbox {
 	display: inline-block;
 	width: 78%;
-	height: 42px;
+	height: 36px;
 	margin: 0 auto 4px;
 	text-indent: 8px;
 	font-size: 1rem;
 	border: 1px solid lightgrey;
-	border-radius: 3px;
+	border-radius: 8px;
 	outline: none;
+	outline-style: none;
+	outline-width: 0;
+	text-shadow: none;
+	-webkit-appearance: none ;
+	-webkit-user-select: text ;
+	outline-color:transparent;
+	box-shadow: none;
+	caret-color: #6b38fb;
 }
