@@ -143,7 +143,7 @@ class Search extends Component {
 			points: destinationsPoints
 		}
 
-		const url = 'http://39.98.198.86:3000/routes'
+		const url = 'https://api.cqbus405.com/routes'
 		dispatch(httpRequest(url, null, bodyToSend, 'POST', 'routes'))
 		if (!isFetching) {
 			this.props.history.push('/routes')
@@ -186,7 +186,7 @@ class Search extends Component {
 			dispatch(clearPlaces())
 			return
 		} else {
-			const url = 'http://39.98.198.86:3000/locations'
+			const url = 'https://api.cqbus405.com/locations'
 			dispatch(httpRequest(url, {
 				region: '重庆',
 				place
