@@ -5,7 +5,7 @@ import logo from '../assets/image/ic_logo.png'
 const Header = () => {
 	return (
 		<div className="header">
-			<img src={logo} />
+			<img src={logo} alt="logo" />
 			<span>EzGoing</span>
 		</div>
 	)

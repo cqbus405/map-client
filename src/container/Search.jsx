@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
 import AddButton from '../component/AddButton'
 import TextBox from '../component/TextBox'
 import DeleteButton from '../component/DeleteButton'
@@ -11,7 +10,7 @@ import '../assets/sass/searchlist.scss'
 
 import { 
 	httpRequest, 
-	getCurrentLocation, 
+	fetchCurrentLocation, 
 	clearPlaces,
 	addPlace,
 	deletePlace,
@@ -40,25 +39,30 @@ class Search extends Component {
 	}
 
 	componentDidMount() {
-		// const { dispatch } = this.props
+		const { dispatch } = this.props
 
-		// const BMap = window.BMap
-		// const geolocation = new BMap.Geolocation()
-		// geolocation.getCurrentPosition(function(r) {
-		// 	const status = this.getStatus()
-		// 	if (status === 0) {
-		// 		console.log(JSON.stringify(r))
-		// 		const currentLocation = {
-		// 			location: r.point,
-		// 			province: r.address.province,
-		// 			city: r.address.city,
-		// 			district: r.address.district
-		// 		}
-		// 		dispatch(getCurrentLocation(currentLocation))
-		// 	} else {
-		// 		console.log(status)
-		// 	}
-		// })
+		const BMap = window.BMap
+		const geolocation = new BMap.Geolocation()
+		geolocation.getCurrentPosition(function(r) {
+			const status = this.getStatus()
+			if (status === 0) {
+				console.log(JSON.stringify(r))
+				const currentLocation = {
+					location: r.point,
+					province: r.address.province,
+					city: r.address.city,
+					district: r.address.district,
+					street: r.address.street,
+					name: '[当前位置]'
+				}
+				console.log(currentLocation)
+				dispatch(fetchCurrentLocation(currentLocation))
+			} else {
+				alert('errcode: ' + status)
+			}
+		}, {
+			enableHighAccuracy: true
+		})
 	}
 
 	//---------------------------------------------Events on the Main Container---------------------------------------------------

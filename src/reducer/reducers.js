@@ -38,7 +38,8 @@ const http = (state = {
 const places = (state = [{}, {}], action) => {
 	switch (action.type) {
 		case GET_CURRENT_LOCATION:
-			return Object.assign({}, state, {start: action.currentLocation})
+			state[0] = action.currentLocation
+			return [...state]
 
 		case ADD_PLACE:
 			return [...state, {}]
