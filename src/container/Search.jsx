@@ -49,8 +49,6 @@ class Search extends Component {
 
 		let place = event.target.value
 
-		event.target.value = place
-
 		if (!place) {
 			dispatch(clearPlaces())
 			return
