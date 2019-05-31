@@ -2,12 +2,6 @@
 @import "textbox.scss";
 
 .searchlist {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	height: 100%;
-	width: 100%;
 	padding: 16px;
 	box-sizing: border-box;
 	text-align: center;
@@ -22,7 +16,7 @@
   	background-size: 18px 18px;
   	background-repeat: no-repeat;
   	background-position: center;  
-  	background-color: #6b38fb;
+  	background-color: $secondary-color;
 	}
 
 	input {

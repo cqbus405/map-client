@@ -1,3 +1,5 @@
+$secondary-color: wheat;
+
 %smallbtn {
   display: inline-block;
   height: 28px;
@@ -10,7 +12,7 @@
   background-size: 16px 16px;
   background-repeat: no-repeat;
   background-position: center;  
-  background-color: #6b38fb;
+  background-color: $secondary-color;
 }
 
 .addbutton {
@@ -31,7 +33,7 @@
   background-size: 32px 32px;
   background-repeat: no-repeat;
   background-position: center;  
-  background-color: #6b38fb;
+  background-color: $secondary-color;
   background-image: url("../image/ic_search.svg");
   border-radius: 50%;
 }

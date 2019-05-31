@@ -7,7 +7,8 @@ import {
 	CLEAR_PLACES,
 	ADD_PLACE,
 	DELETE_PLACE,
-	CHOOSE_PLACE
+	CHOOSE_PLACE,
+	SET_INDEX
 } from '../action/actions'
 
 const http = (state = {
@@ -59,9 +60,23 @@ const places = (state = [{}, {}], action) => {
 	}
 }
 
+const place = (state = {
+	index: 0,
+	name: ''
+}, action) => {
+	switch (action.type) {
+		case SET_INDEX:
+			return Object.assign({}, state, {index: action.index})
+
+		default:
+			return state
+	}
+}
+
 const reducer = combineReducers({
 	http,
-	places
+	places,
+	place
 })
 
 export default reducer

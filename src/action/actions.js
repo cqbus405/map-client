@@ -9,6 +9,7 @@ export const CLEAR_PLACES = 'CLEAR_PLACES'
 export const ADD_PLACE = 'ADD_PLACE'
 export const DELETE_PLACE = 'DELETE_PLACE'
 export const CHOOSE_PLACE = 'CHOOSE_PLACE'
+export const SET_INDEX = 'SET_INDEX'
 
 const isFetching = isFetching => {
 	return {
@@ -118,5 +119,12 @@ export const fetchCurrentLocation = currentLocation => {
 export const clearPlaces = () => {
 	return {
 		type: CLEAR_PLACES
+	}
+}
+
+export const setIndex = index => {
+	return {
+		type: SET_INDEX,
+		index
 	}
 }
