@@ -5,7 +5,7 @@ import store from '../store/store'
 import Main from './Main'
 import Search from './Search'
 import Routes from './Routes'
-import MapContainer from './MapContainer'
+import Map from './Map'
 
 const App = () => (
 	<Provider store={store}>
@@ -13,7 +13,7 @@ const App = () => (
 			<Route path="/" exact component={Main} />
 			<Route path="/search" exact component={Search} />
 			<Route path="/routes" exact component={Routes} />
-			<Route path="/map" exact component={MapContainer} />
+			<Route path="/map" exact component={Map} />
 		</Router>
 	</Provider>
 )

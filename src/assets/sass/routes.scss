@@ -1,20 +1,42 @@
 .routes-container {
 	margin: 0;
 	padding: 0;
+	list-style: none;
 
-	div {
-		padding: 16px;
+	.routes-inner-container {
+		display: flex;
+		align-items: center;
+		margin: 8px;
+		padding: 8px;
+    border-bottom: 1px solid #f1f1f1;
 
-		.route {
-			margin: 16px;
-			font-size: 16px;
-		}
+    .routes-item-number {
+    	font-size: 1.6rem;
+    }
 
-		.detail {
-			margin: 16px 16px 0;
-			list-style: none;
-			font-size: 14px;
-			color: rgba(0, 0, 0, .26);
+    .routes-item-content {
+    	flex-grow: 8;
+    	margin: 0 16px;
+    }
+
+    .routes-item {
+
+			.route {
+				font-size: 16px;
+			}
+
+			.detail {
+				margin: 4px 0;
+				font-size: 14px;
+				color: rgba(0, 0, 0, .26);
+			}
+
+			img {
+		    height: 14px;
+		    padding: 10px;
+				background-color: wheat;
+		    border-radius: 50%;
+			}
 		}
 	}
 }

@@ -34,7 +34,6 @@ class Main extends Component {
 		geolocation.getCurrentPosition(function(r) {
 			const status = this.getStatus()
 			if (status === 0) {
-				console.log(JSON.stringify(r))
 				const currentLocation = {
 					location: r.point,
 					province: r.address.province,
@@ -43,7 +42,6 @@ class Main extends Component {
 					street: r.address.street,
 					name: '[当前位置]'
 				}
-				console.log(currentLocation)
 				dispatch(fetchCurrentLocation(currentLocation))
 			} else {
 				alert('errcode: ' + status)
