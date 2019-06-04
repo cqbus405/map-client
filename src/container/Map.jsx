@@ -1,38 +1,51 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import mapStyle from '../assets/file/mapstyle.json'
 import '../assets/sass/map.scss'
 
 class Map extends Component {
   componentDidMount() {
-    let { start, routes } = this.props
+    let { start, routes, places } = this.props
 
-    var BMap = window.BMap
-    var map = new BMap.Map('container')
-    var point = new BMap.Point(start.lng, start.lat)
+    let BMap = window.BMap
+    let map = new BMap.Map('container')
+
+    let point = new BMap.Point(start.lng, start.lat)
     map.centerAndZoom(point, 15)
 
-    var mk = new BMap.Marker(point);
-    map.addOverlay(mk)
+    // 设置map样式
+    map.setMapStyleV2({styleJson: mapStyle})
 
-    let route = routes[0]
-    let steps = route.steps
-    steps.map(step => {
-      let path = step.path
-      let points = path.split(';')
+    for (let i = 0; i < places.length; ++i) {
+      let place = places[i]
+      let location = place.location
+      let point = new BMap.Point(location.lng, location.lat)
+      let mk = new BMap.Marker(point)
+      map.addOverlay(mk)      
+    }
 
-      let line = []
-      points.map(point => {
-        let pointArr = point.split(',')
-        let lng = pointArr[0]
-        let lat = pointArr[1]
-        line.push(new BMap.Point(lng, lat))
+    for (let i = 0; i < routes.length; ++i) {
+      let route = routes[i]
+      let steps = route.steps
+
+      steps.map(step => {
+        let path = step.path
+        let points = path.split(';')
+
+        let line = []
+        points.map(point => {
+          let pointArr = point.split(',')
+          let lng = pointArr[0]
+          let lat = pointArr[1]
+          line.push(new BMap.Point(lng, lat))
+        })
+
+        map.addOverlay(new BMap.Polyline(line, {
+          strokeOpacity: 1,
+          strokeWeight: 6
+        }))
       })
-
-      map.addOverlay(new BMap.Polyline(line, {
-        strokeOpacity: 1,
-        strokeWeight: 6
-      }))
-    })
+    }
   }
 
   render() {
@@ -45,7 +58,8 @@ class Map extends Component {
 const mapStateToProps = state => {
   return {
     start: (state.places)[0].location,
-    routes: state.http.data.routes
+    routes: state.http.data.routes,
+    places: state.places
   }
 }
 
