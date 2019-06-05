@@ -29,26 +29,32 @@ class Main extends Component {
 	componentDidMount() {
 		const { dispatch } = this.props
 
-		const BMap = window.BMap
-		const geolocation = new BMap.Geolocation()
-		geolocation.getCurrentPosition(function(r) {
-			const status = this.getStatus()
-			if (status === 0) {
-				const currentLocation = {
-					location: r.point,
-					province: r.address.province,
-					city: r.address.city,
-					district: r.address.district,
-					street: r.address.street,
-					name: '[当前位置]'
+		let currentLocation = JSON.parse(window.sessionStorage.getItem('currentLocation'))
+		if (currentLocation) {
+			dispatch(fetchCurrentLocation(currentLocation))			
+		} else {
+			const BMap = window.BMap
+			const geolocation = new BMap.Geolocation()
+			geolocation.getCurrentPosition(function(r) {
+				const status = this.getStatus()
+				if (status === 0) {
+					const currentLocation = {
+						location: r.point,
+						province: r.address.province,
+						city: r.address.city,
+						district: r.address.district,
+						street: r.address.street,
+						name: r.address.street + ' [当前位置]'
+					}
+					dispatch(fetchCurrentLocation(currentLocation))
+					window.sessionStorage.setItem('currentLocation', JSON.stringify(currentLocation))
+				} else {
+					alert('获取当前位置失败: ' + status)
 				}
-				dispatch(fetchCurrentLocation(currentLocation))
-			} else {
-				alert('errcode: ' + status)
-			}
-		}, {
-			enableHighAccuracy: true
-		})
+			}, {
+				enableHighAccuracy: true
+			})
+		}
 	}
 
 	/**

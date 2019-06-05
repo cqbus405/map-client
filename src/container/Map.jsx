@@ -24,6 +24,8 @@ class Map extends Component {
       map.addOverlay(mk)      
     }
 
+    let line = []
+
     for (let i = 0; i < routes.length; ++i) {
       let route = routes[i]
       let steps = route.steps
@@ -32,20 +34,19 @@ class Map extends Component {
         let path = step.path
         let points = path.split(';')
 
-        let line = []
         points.map(point => {
           let pointArr = point.split(',')
           let lng = pointArr[0]
           let lat = pointArr[1]
           line.push(new BMap.Point(lng, lat))
         })
-
-        map.addOverlay(new BMap.Polyline(line, {
-          strokeOpacity: 1,
-          strokeWeight: 6
-        }))
       })
     }
+
+    map.addOverlay(new BMap.Polyline(line, {
+      strokeOpacity: 1,
+      strokeWeight: 6
+    }))
   }
 
   render() {
