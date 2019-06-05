@@ -25,28 +25,43 @@ class Map extends Component {
     }
 
     let line = []
-
     for (let i = 0; i < routes.length; ++i) {
       let route = routes[i]
       let steps = route.steps
 
-      steps.map(step => {
+      steps.map((step, key) => {
         let path = step.path
         let points = path.split(';')
 
-        points.map(point => {
+        points.map((point, key2) => {
           let pointArr = point.split(',')
           let lng = pointArr[0]
           let lat = pointArr[1]
-          line.push(new BMap.Point(lng, lat))
+          if (key !== steps.length - 1 && key2 !== points.length - 1) {
+            line.push(new BMap.Point(lng, lat))
+          }
         })
       })
     }
 
-    map.addOverlay(new BMap.Polyline(line, {
+    let symbol = new BMap.Symbol(window.BMap_Symbol_SHAPE_BACKWARD_OPEN_ARROW, {
+      scale: 0.6, //设置矢量图标的缩放比例
+      strokeColor: '#fff', //设置矢量图标的线填充颜色,支持颜色常量字符串、十六进制、RGB、RGBA等格式
       strokeOpacity: 1,
-      strokeWeight: 6
-    }))
+      strokeWeight: 2, //旋设置线宽。如果此属性没有指定，则线宽跟scale数值相
+    })
+
+    let iconSequence = new BMap.IconSequence(symbol, '10', '2%', false)
+
+    let polyLine = new BMap.Polyline(line, {
+      strokeColor: '#18a45b',
+      strokeWeight: 8,
+      strokeOpacity: 0.8,
+      enableClicking: false,
+      icons: [iconSequence]
+    })
+
+    map.addOverlay(polyLine)
   }
 
   render() {

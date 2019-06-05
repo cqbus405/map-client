@@ -11,7 +11,6 @@ class Routes extends Component {
 	}
 
 	handleClick(event, index) {
-		console.log(index, 'clicked')
 		this.props.history.push('/map')
 	}
 
