@@ -12,9 +12,10 @@ class Map extends Component {
 
     let point = new BMap.Point(start.lng, start.lat)
     map.centerAndZoom(point, 15)
+    map.enableScrollWheelZoom(true)
 
     // 设置map样式
-    map.setMapStyleV2({styleJson: mapStyle})
+    map.setMapStyle({styleJson: mapStyle})
 
     for (let i = 0; i < places.length; ++i) {
       let place = places[i]
@@ -24,44 +25,84 @@ class Map extends Component {
       map.addOverlay(mk)      
     }
 
-    let line = []
+    let data = []
+    let timeData = []
+
+    let rs = []
+
     for (let i = 0; i < routes.length; ++i) {
       let route = routes[i]
       let steps = route.steps
 
       steps.map((step, key) => {
         let path = step.path
-        let points = path.split(';')
-
-        points.map((point, key2) => {
-          let pointArr = point.split(',')
-          let lng = pointArr[0]
-          let lat = pointArr[1]
-          if (key !== steps.length - 1 && key2 !== points.length - 1) {
-            line.push(new BMap.Point(lng, lat))
-          }
-        })
+        path = path.replace(/;/g, ',')
+        rs.push(path)
       })
     }
 
-    let symbol = new BMap.Symbol(window.BMap_Symbol_SHAPE_BACKWARD_OPEN_ARROW, {
-      scale: 0.6, //设置矢量图标的缩放比例
-      strokeColor: '#fff', //设置矢量图标的线填充颜色,支持颜色常量字符串、十六进制、RGB、RGBA等格式
-      strokeOpacity: 1,
-      strokeWeight: 2, //旋设置线宽。如果此属性没有指定，则线宽跟scale数值相
-    })
+    const mapv = window.mapv
 
-    let iconSequence = new BMap.IconSequence(symbol, '10', '2%', false)
+    let maxLength = 0
+    for (let i = 0; i < rs.length; i++) {
+      let item = rs[i].split(',')
+      let coordinates = []
+      if (item.length > maxLength) {
+        maxLength = item.length
+      }
+      for (let j = 0; j < item.length; j += 2) {
+        coordinates.push([item[j], item[j + 1]])
+        timeData.push({
+          geometry: {
+            type: 'Point',
+            coordinates: [item[j], item[j + 1]]
+          },
+          count: 1,
+          time: j
+        })
+      }
+      data.push({
+        geometry: {
+          type: 'LineString',
+          coordinates: coordinates
+        }
+      })
+    }
 
-    let polyLine = new BMap.Polyline(line, {
-      strokeColor: '#18a45b',
-      strokeWeight: 8,
-      strokeOpacity: 0.8,
-      enableClicking: false,
-      icons: [iconSequence]
-    })
+    const dataSet = new mapv.DataSet(data)
 
-    map.addOverlay(polyLine)
+    const options = {
+      strokeStyle: 'rgba(50, 50, 255, 0.8)',
+      // coordType: 'bd09mc',
+      // globalCompositeOperation: 'lighter',
+      shadowColor: 'rgba(53,57,255,0.2)',
+      shadowBlur: 3,
+      lineWidth: 3.0,
+      draw: 'simple'
+    }
+
+    let mapvLayer = new mapv.baiduMapLayer(map, dataSet, options)
+
+
+    const dataSet2 = new mapv.DataSet(timeData)
+
+    const options2 = {
+      fillStyle: 'rgba(255, 250, 250, 0.2)',
+      // coordType: 'bd09mc',
+      globalCompositeOperation: "lighter",
+      size: 1.5,
+      animation: {
+        stepsRange: {
+          start: 0,
+          end: 100 
+        },
+        trails: 3,
+        duration: 5,
+      },
+      draw: 'simple'
+    }
+
+    let mapvLayer2 = new mapv.baiduMapLayer(map, dataSet2, options2)
   }
 
   render() {
@@ -79,4 +120,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(Map);
+export default connect(mapStateToProps)(Map)
