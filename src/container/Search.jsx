@@ -1,90 +1,108 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import AddButton from '../component/AddButton'
-import TextBox from '../component/TextBox'
-import DeleteButton from '../component/DeleteButton'
-import Header from '../component/Header'
-import SearchButton from '../component/SearchButton'
-import '../assets/sass/search.scss'
-import { get, getCurrentLocation } from '../action/actions'
+import '../assets/sass/searchlist.scss'
+
+import { 
+	httpRequest, 
+	clearPlaces,
+	choosePlace
+} from '../action/actions'
 
 class Search extends Component {
 	constructor(props) {
 		super(props)
-		this.handleAddButtonClick = this.handleAddButtonClick.bind(this)
-		this.handleDeleteButtonClick = this.handleDeleteButtonClick.bind(this)
+
 		this.state = {
-			destinations: []
+			place: this.props.places[this.props.index].name
+		}
+
+		this.handleBackBtnClick = this.handleBackBtnClick.bind(this)
+		this.handleInputChange = this.handleInputChange.bind(this)
+		this.handlePlaceClick = this.handlePlaceClick.bind(this)
+
+		this.inputBoxRef = React.createRef()
+	}
+
+	/**
+	 * Handle onclick event of the Back Button
+	 * @Author   q
+	 * @DateTime 2019-05-03T23:50:56+0800
+	 * @param    event the event object
+	 */
+	handleBackBtnClick() {
+		this.inputBoxRef.current.value = ''
+
+		const { dispatch } = this.props
+		dispatch(clearPlaces())
+
+		this.props.history.push('/')
+	}
+
+	/**
+	 * Handle onchange event of the Input
+	 * @Author   q
+	 * @DateTime 2019-05-03T23:54:23+0800
+	 * @param    event event object
+	 */
+	handleInputChange(event) {
+		const { dispatch } = this.props
+
+		let place = event.target.value
+
+		if (!place) {
+			dispatch(clearPlaces())
+			return
+		} else {
+			const url = 'https://api.cqbus405.com/locations'
+			dispatch(httpRequest(url, {
+				region: '重庆',
+				place
+			}, null, 'GET', 'places'))
 		}
 	}
 
+	/**
+	 * Handle onclick event of the Input
+	 * @Author   q
+	 * @DateTime 2019-05-03T23:53:02+0800
+	 * @param    event event object
+	 */
+	handlePlaceClick(event) {
+		const { fetchedData, dispatch } = this.props
+		const id = event.currentTarget.id
+
+		const place = (fetchedData.places)[id]
+		const index = this.props.index
+		dispatch(choosePlace(index, place))
+
+		this.handleBackBtnClick()
+	}
+
 	componentDidMount() {
-		const { dispatch } = this.props
-
-		const BMap = window.BMap
-		const geolocation = new BMap.Geolocation()
-		geolocation.getCurrentPosition(function(r) {
-			const status = this.getStatus()
-			if (status === 0) {
-				console.log(JSON.stringify(r))
-				const currentLocation = {
-					location: r.point,
-					province: r.address.province,
-					city: r.address.city,
-					district: r.address.district
-				}
-				dispatch(getCurrentLocation(currentLocation))
-			} else {
-				console.log(status)
-			}
-		})
-	}
-
-	handleAddButtonClick() {
-		// const { dispatch } = this.props
-
-		// const values = {
-		// 	place: '华宇广场',
-		// 	region: '重庆'
-		// }
-
-		// dispatch(get('http://39.98.198.86:3000/locations', values))
-
-		let destinations = this.state.destinations
-		destinations.push("请输入目的地")
-		this.setState({
-			destinations
-		})
-	}
-
-	handleDeleteButtonClick(event, index) {
-		console.log(index)
-		let destinations = this.state.destinations
-		destinations.splice(index, 1)
-		this.setState({
-			destinations
-		})
+		this.inputBoxRef.current.value = this.state.place ? this.state.place : ''
 	}
 
 	render() {
 		return (
-			<div>
-				<Header />
-				<div className="body-container">
-					<div>
-						<TextBox hint={this.props.start} />
-						<AddButton handleClick={this.handleAddButtonClick} />
-					</div>
-					{this.state.destinations.map((destination, index) => {
-						return (
-							<div key={index}>
-								<TextBox hint={destination} />
-								<DeleteButton handleClick={e => this.handleDeleteButtonClick(e, index)} />
-							</div>
-						)
-					})}
-					<SearchButton />
+			<div className="searchlist">
+				<div>
+					<div className="backbtn" onClick={this.handleBackBtnClick}></div>
+					<input type="text" placeholder="请输入地址" onChange={this.handleInputChange} ref={this.inputBoxRef} />
 				</div>
+				<ul>
+					{
+						this.props.fetchedData && this.props.fetchedData.places ? this.props.fetchedData.places.map((place, index) => {
+							return (
+								<li key={index} id={index} onClick={this.handlePlaceClick}>
+									<div className="list-container">
+										<div className="list-item list-item-title">{place.name}</div>
+										<div className="list-item list-item-detail">{place.district + ' ' + place.city + ' ' + place.province}</div>
+									</div>
+								</li>
+							)
+						}) : ''
+					}
+				</ul>
 			</div>
 		)
 	}
@@ -92,7 +110,9 @@ class Search extends Component {
 
 const mapStateToProps = state => {
 	return {
-		start: state.places.start ? '当前定位' :　''
+		fetchedData: state.http.data,
+		index: state.place.index,
+		places: state.places
 	}
 }
 

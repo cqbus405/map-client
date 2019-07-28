@@ -1,9 +1,8 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 
-const SearchButton = () => {
+const SearchButton = props => {
 	return (
-		<Link to="map" className="searchbutton" />
+		<div className="searchbutton" onClick={props.handleSearchBtnClick}></div>
 	)
 }
 

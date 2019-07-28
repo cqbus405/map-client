@@ -1,0 +1,64 @@
+@import "button.scss";
+@import "textbox.scss";
+
+.searchlist {
+	padding: 16px;
+	box-sizing: border-box;
+	text-align: center;
+	background-color: white;
+
+	.backbtn {
+		@extend %smallbtn;
+		line-height: 28px;
+		text-align: center;
+		color: white;
+		background-image: url("../image/ic_left.svg");
+  	background-size: 18px 18px;
+  	background-repeat: no-repeat;
+  	background-position: center;  
+  	background-color: $secondary-color;
+	}
+
+	input {
+		@extend .textbox;
+	}
+
+	ul {
+    position: absolute;
+    top: 80px;
+    left: 32px;
+    right: 32px;
+    bottom: 16px;
+    margin: 0;
+    padding: 0;
+    text-align: left;
+    overflow-y: auto;
+
+		li {
+			height: 40px;
+			padding: 8px 4px;
+			list-style: none;
+			font-size: 12px;
+			border-bottom: 1px dotted #f1f1f1;
+
+			.list-container {
+				display: flex;
+				flex-direction: column;
+				height: 100%;
+
+				.list-item {
+					flex-grow: 1;
+					line-height: 20px;
+				}
+
+				.list-item-title {
+					font-size: 16px;
+				}
+
+				.list-item-detail {
+					color: rgba(0, 0, 0, .26);
+				}
+			}
+		}
+	}
+}

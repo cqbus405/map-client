@@ -5,6 +5,11 @@ export const HANDLE_RESPONSE = 'HANDLE_RESPONSE'
 export const HANDLE_ERROR = 'HANDLE_ERROR'
 export const GET = 'GET'
 export const GET_CURRENT_LOCATION = 'GET_CURRENT_LOCATION'
+export const CLEAR_PLACES = 'CLEAR_PLACES'
+export const ADD_PLACE = 'ADD_PLACE'
+export const DELETE_PLACE = 'DELETE_PLACE'
+export const CHOOSE_PLACE = 'CHOOSE_PLACE'
+export const SET_INDEX = 'SET_INDEX'
 
 const isFetching = isFetching => {
 	return {
@@ -13,10 +18,11 @@ const isFetching = isFetching => {
 	}
 }
 
-const handleResponse = data => {
+const handleResponse = (data, type) => {
 	return {
 		type: HANDLE_RESPONSE,
-		data
+		data,
+		dataType: type
 	}
 }
 
@@ -27,8 +33,8 @@ const handleError = error => {
 	}
 }
 
-export const get = (url, values) => {
-	return dispatch => {
+export const httpRequest = (url, values, body, method, type) => {
+	return (dispatch) => {
 		dispatch(isFetching(true))
 
 		let queryParam = '?'
@@ -41,10 +47,33 @@ export const get = (url, values) => {
 
 		let endPoint = url + queryParam
 
-		return fetch(endPoint)
+		let requestMethod = method ? method : 'GET'
+
+		let options = {
+			method: requestMethod
+		}
+
+		if (body) {
+			options.headers = {
+				"Content-Type": "application/json"
+			}
+
+			options.body = JSON.stringify(body)
+		}
+
+		return fetch(endPoint, options)
 			.then(response => {
 				dispatch(isFetching(false))
-				return response.json()
+				if (response.ok) {
+					return response.json()
+				} else {
+					let code = response.status
+					let errmsg = response.statusText
+					return {
+						code,
+						msg: errmsg
+					}
+				}
 			})
 			.then(json => {
 				let code = json.code
@@ -53,16 +82,49 @@ export const get = (url, values) => {
 					dispatch(handleError(code + ' ' + errmsg))
 				} else {
 					let data = json.data
-					dispatch(handleResponse(data))
+					dispatch(handleResponse(data, type))
 				}
 			})
 	}
 }
 
-export const getCurrentLocation = currentLocation => {
+export const addPlace = () => {
+	return {
+		type: ADD_PLACE
+	}
+}
+
+export const deletePlace = index => {
+	return {
+		type: DELETE_PLACE,
+		index
+	}
+}
+
+export const choosePlace = (index, place) => {
+	return {
+		type: CHOOSE_PLACE,
+		index,
+		place
+	}
+}
+
+export const fetchCurrentLocation = currentLocation => {
 	return {
 		type: GET_CURRENT_LOCATION,
 		currentLocation
 	}
 }
 
+export const clearPlaces = () => {
+	return {
+		type: CLEAR_PLACES
+	}
+}
+
+export const setIndex = index => {
+	return {
+		type: SET_INDEX,
+		index
+	}
+}
