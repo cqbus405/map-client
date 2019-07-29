@@ -1,0 +1,170 @@
+.main-container {
+	padding: 16px 8px;
+
+	.main-create-btn {
+    padding: 8px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid grey;
+	}
+
+	.main-create-btn:active {
+		background-color: black;
+		color: white;
+		border: none;
+	}
+
+	.main-selection {
+		height: 30px;
+		padding: 0;
+		list-style: none;
+
+		li {
+			float: left;
+			padding: 5px 10px;
+			margin-right: 9px;
+			font-size: .9rem;
+			border-radius: 4px;
+		}
+
+		li:nth-child(1) {
+			color: white;
+			background-color: #77d7ec;
+		}
+
+		li:nth-child(2) {
+			color: white;
+			background-color: #ffd739;
+		}
+
+		li:nth-child(3) {
+			color: white;
+			background-color: #84d02b;
+		}
+
+		li:nth-child(4) {
+			color: white;
+			background-color: #fb9543;
+		}
+
+		li:nth-child(5) {
+			color: white;
+			background-color: #ff4081;
+
+		}
+		li:nth-child(6) {
+			border: 1px solid #000;
+		}		
+
+		li:active {
+			background-color: #000
+		}
+
+		li:nth-child(6):active {
+			color: white;
+		}		
+	}
+
+	.main-content {
+		border-bottom: 1px solid lightgrey;
+
+		ul {
+			height: 21px;
+			padding: 0;
+			list-style: none;
+
+			.main-content-title {
+				width: 250px;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		    white-space: nowrap
+			}
+
+			li:nth-child(1) {
+				float: left;
+			}
+
+			li:nth-child(2) {
+				float: right;
+			}
+		}
+
+		.main-image-container {
+			display: flex;
+		}
+
+		.main-image-inner-container {
+			flex: 1;
+			padding: 2px;
+
+			img {
+				width: 100%;
+				border-radius: 8px;
+			}
+		}
+
+		.main-content-info {
+			height: 25px;
+			margin-top: 0;
+			margin-bottom: 4px;
+			list-style: none;
+
+			li:nth-child(1) {
+				float: left;
+				width: 21px;
+				height: 21px;
+
+				img {
+					height: 100%;
+					width: 100%;
+					border-radius: 50%;
+				}
+			}
+
+			li:nth-child(2) {
+				float: left;
+			}
+
+			li:nth-child(3):before {
+				content: " ";
+				margin-right: 4px;
+				display: inline-block;
+				height: 12px;
+				width: 12px;
+				background-image: url('../image/ic_score.svg');
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+			}
+
+			li:nth-child(4):before {
+				content: " ";
+				margin-right: 4px;
+				display: inline-block;
+				height: 12px;
+				width: 12px;
+				background-image: url('../image/ic_comments.svg');
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+			}
+
+			li:nth-child(5):before {
+				content: " ";
+				margin-right: 4px;
+				display: inline-block;
+				height: 12px;
+				width: 12px;
+				background-image: url('../image/ic_like.svg');
+				background-repeat: no-repeat;
+				background-position: center;
+				background-size: cover;
+			}
+
+			li {
+				float: right;
+				margin-right: 8px;
+			}
+		}
+	}
+}

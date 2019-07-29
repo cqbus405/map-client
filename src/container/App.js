@@ -13,7 +13,9 @@ const App = () => (
 		<PersistGate loading={null} persistor={store.persistor}>
 			<Router>
 				<Route path="/" exact component={Main} />
+				<Route path="/main" exact component={Main} />
 				<Route path="/search" exact component={Search} />
+				<Route path="/firstpage" exact component={FirstPage} />
 				<Route path="/routes" exact component={Routes} />
 				<Route path="/map" exact component={Map} />
 			</Router>
