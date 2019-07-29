@@ -8,6 +8,7 @@ import Search from './Search'
 import Routes from './Routes'
 import Map from './Map'
 import FirstPage from './FirstPage'
+import SearchNew from './SearchNew'
 
 const App = () => (
 	<Provider store={store.store}>
@@ -19,6 +20,7 @@ const App = () => (
 				<Route path="/firstpage" exact component={FirstPage} />
 				<Route path="/routes" exact component={Routes} />
 				<Route path="/map" exact component={Map} />
+				<Route path="/newsearch" exact component={SearchNew} />
 			</Router>
 		</PersistGate>
 	</Provider>

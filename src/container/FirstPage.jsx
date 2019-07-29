@@ -16,7 +16,16 @@ class FirstPage extends Component {
 				hot: 8.7,
 				comments: 257,
 				like: 2314,
-				avatar: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2131852904,352554911&fm=27&gp=0.jpg'
+				avatar: 'https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2131852904,352554911&fm=27&gp=0.jpg',
+				bgStyle: {
+					flex: '1',
+					height: '170px',
+					margin: '2px',
+					backgroundImage: '',
+					backgroundRepeat: 'no-repeat',
+					backgroundSize: 'cover',
+					borderRadius: '4px'
+				}
 			}, {
 				id: 2,
 				title: '300元不远美美玩大半天还吃得超愉快,主城+郊区比网红景点...',
@@ -29,7 +38,16 @@ class FirstPage extends Component {
 				hot: 7.2,
 				comments: 35,
 				like: 55,
-				avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564346908706&di=2dfefb0e6f72b7fdf990c06963f45e5c&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201208%2F15%2F20120815111223_eksZ3.thumb.700_0.jpeg'
+				avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564346908706&di=2dfefb0e6f72b7fdf990c06963f45e5c&imgtype=0&src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201208%2F15%2F20120815111223_eksZ3.thumb.700_0.jpeg',
+				bgStyle: {
+					flex: '1',
+					height: '100px',
+					margin: '2px',
+					backgroundImage: '',
+					backgroundRepeat: 'no-repeat',
+					backgroundSize: 'cover',
+					borderRadius: '4px'
+				}
 			}, {
 				id: 3,
 				title: '我的泸沽湖6日游记',
@@ -43,7 +61,16 @@ class FirstPage extends Component {
 				hot: 8.1,
 				comments: 112,
 				like: 1892,
-				avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564346934318&di=e3277a26f4204669349bfbd279e72c18&imgtype=0&src=http%3A%2F%2Fimg.qqzhi.com%2Fuploads%2F2018-12-02%2F022252653.jpg'
+				avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564346934318&di=e3277a26f4204669349bfbd279e72c18&imgtype=0&src=http%3A%2F%2Fimg.qqzhi.com%2Fuploads%2F2018-12-02%2F022252653.jpg',
+				bgStyle: {
+					flex: '1',
+					height: '70px',
+					margin: '2px',
+					backgroundImage: '',
+					backgroundRepeat: 'no-repeat',
+					backgroundSize: 'cover',
+					borderRadius: '4px'
+				}
 			},{
 				id: 4,
 				title: '月销4W+的旅行收纳神器',
@@ -55,7 +82,16 @@ class FirstPage extends Component {
 				hot: 0,
 				comments: 0,
 				like: 0,
-				avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564346988095&di=49b4853e9d5f211952e1d4f9716cc2b5&imgtype=0&src=http%3A%2F%2Fimg.name2012.com%2Fuploads%2Fallimg%2F130929%2F29-011605_801.jpg'
+				avatar: '',
+				bgStyle: {
+					flex: '1',
+					height: '170px',
+					margin: '2px',
+					backgroundImage: '',
+					backgroundRepeat: 'no-repeat',
+					backgroundSize: 'cover',
+					borderRadius: '4px'
+				}
 			},{
 				id: 5,
 				title: '258的防风镜质量可靠吗？测评在此',
@@ -67,47 +103,63 @@ class FirstPage extends Component {
 				hot: 0,
 				comments: 35,
 				like: 55,
-				avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564347012090&di=e1b60acf90e3431ba878d7ef6a9d4d9c&imgtype=0&src=http%3A%2F%2Fwww.ghost64.com%2Fqqtupian%2FzixunImg%2Flocal%2F2017%2F03%2F09%2F14890405078091.jpg'
+				avatar: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564347012090&di=e1b60acf90e3431ba878d7ef6a9d4d9c&imgtype=0&src=http%3A%2F%2Fwww.ghost64.com%2Fqqtupian%2FzixunImg%2Flocal%2F2017%2F03%2F09%2F14890405078091.jpg',
+				bgStyle: {
+					flex: '1',
+					height: '170px',
+					margin: '2px',
+					backgroundImage: '',
+					backgroundRepeat: 'no-repeat',
+					backgroundSize: 'cover',
+					borderRadius: '4px'
+				}
 			}]
 		}
 	}
 
 	render() {
 		return (
-			<div className="main-container">
-				<div className="main-create-btn">创建行程</div>
-				<ul className="main-selection">
-					<li>关注</li>
-					<li>推荐</li>
-					<li>直播</li>
-					<li>吃货</li>
-					<li>本地</li>
-					<li>更多</li>
-				</ul>
+			<div className="wrapper">
 				<div>
+					<div className="long-btn">创建行程</div>
+					<div className="filter-wrapper">
+						<div className="filter-item">关注</div>
+						<div className="filter-item">推荐</div>
+						<div className="filter-item">直播</div>
+						<div className="filter-item">吃货</div>
+						<div className="filter-item">本地</div>
+						<div className="filter-item">更多</div>
+					</div>
+				</div>
+				<div className="main">
 					{this.state.fakeData.map((item, key) => {
 						return (
-							<div className="main-content" key={key}>
-								<ul>
-									<li className="main-content-title">{item.title}</li>
-									<li>{item.distance}</li>
-								</ul>
-								<div className="main-image-container">
+							<div key={key} className="content-wrapper">
+								<div className="title-wrapper">
+									<div>{item.title}</div>
+									{item.distance ? <div>{item.distance}</div> : ''}
+								</div>
+								<div className="images-wrapper">
 									{item.images.map((innerItem, innerKey) => {
+										let newBgStyle = Object.assign({}, item.bgStyle, {backgroundImage: `url(${innerItem})`})
+
 										return (
-											<div className="main-image-inner-container" key={innerKey}>
-												<img src={innerItem} alt={innerKey} />
+											<div key={innerKey} style={newBgStyle}>
 											</div>
-										)
+										) 
 									})}
 								</div>
-								<ul className="main-content-info">
-									<li><img alt="avatar" src={item.avatar} /></li>
-									<li>{item.user}</li>
-									<li>{item.hot}</li>
-									<li>{item.comments}</li>
-									<li>{item.like}</li>								
-								</ul>
+								<div className="info-wrapper">
+									<div className="userinfo">
+										{item.avatar ? <div><img alt="avatar" src={item.avatar} /></div> : ''}
+										<div>{item.user}</div>
+									</div>
+									<div className="articleinfo">
+										<div>{item.hot}</div>
+										<div>{item.comments}</div>
+										<div>{item.like}</div>
+									</div>								
+								</div>
 							</div>
 						)
 					})}
