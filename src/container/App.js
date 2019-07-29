@@ -7,6 +7,7 @@ import Main from './Main'
 import Search from './Search'
 import Routes from './Routes'
 import Map from './Map'
+import FirstPage from './FirstPage'
 
 const App = () => (
 	<Provider store={store.store}>
