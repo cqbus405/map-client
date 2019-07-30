@@ -35,7 +35,8 @@ class Search extends Component {
 		const { dispatch } = this.props
 		dispatch(clearPlaces())
 
-		this.props.history.push('/')
+		// this.props.history.push('/')
+		this.props.history.push('/newsearch')
 	}
 
 	/**

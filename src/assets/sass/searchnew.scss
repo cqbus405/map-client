@@ -4,11 +4,11 @@
 	.s-search-wrapper { 
 
 		.s-search-bar {
-			line-height: 37px;
-			border: 1px solid #000;
+			display: grid;
+			grid-template-columns: 15% 85%;
+			border: 1px solid black;
 
 			div {
-				display: inline;
 				padding: 8px;
 			}
 
@@ -38,6 +38,8 @@
 		.s-sort {
 			text-align: right;
 			margin: 16px 0;
+			color: rgba(0, 0, 0, .54);
+			font-size: .9rem;
 
 			div {
 				display: inline;
@@ -60,9 +62,9 @@
 
 			.s-item {
 				margin-bottom: 8px;
-				box-shadow: 1px 1px 5px lightgrey;
 				border-radius: 4px;
 				break-inside: avoid;
+				background-color: #fff;
 
 				img {
 					width: 100%;

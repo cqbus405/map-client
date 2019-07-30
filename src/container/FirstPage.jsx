@@ -115,13 +115,19 @@ class FirstPage extends Component {
 				}
 			}]
 		}
+
+		this.handleCreateTripBtnClick = this.handleCreateTripBtnClick.bind(this)
+	}
+
+	handleCreateTripBtnClick() {
+		this.props.history.push('/newsearch')
 	}
 
 	render() {
 		return (
 			<div className="wrapper">
 				<div>
-					<div className="long-btn">创建行程</div>
+					<div className="long-btn" onClick={this.handleCreateTripBtnClick}>创建行程</div>
 					<div className="filter-wrapper">
 						<div className="filter-item">关注</div>
 						<div className="filter-item">推荐</div>

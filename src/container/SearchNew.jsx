@@ -158,6 +158,12 @@ class SearchNew extends Component {
 				}
 			}]
 		}
+
+		this.handleSearchBtnClick = this.handleSearchBtnClick.bind(this)
+	}
+
+	handleSearchBtnClick() {
+		this.props.history.push('/search')
 	}
 
 	render() {
@@ -166,7 +172,7 @@ class SearchNew extends Component {
 				<div className="s-search-wrapper">
 					<div className="s-search-bar">
 						<div>重庆</div>
-						<div>请输入目的地（街道、餐厅、景区等）</div>
+						<div onClick={this.handleSearchBtnClick}>请输入目的地（街道、餐厅、景区等）</div>
 					</div>
 					<div className="s-filter">
 						<div>住宿</div>
