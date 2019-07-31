@@ -7,10 +7,14 @@
 	text-align: center;
 	background-color: white;
 
+	.searchbar {
+		display: flex;
+		align-items: center;
+	}
+
 	.backbtn {
 		@extend %smallbtn;
-		line-height: 28px;
-		text-align: center;
+		margin: 0 16px 0 0;
 		color: white;
 		background-image: url("../image/ic_left.svg");
   	background-size: 18px 18px;
@@ -21,6 +25,8 @@
 
 	input {
 		@extend .textbox;
+		margin: 0;
+		padding: 0;
 	}
 
 	ul {

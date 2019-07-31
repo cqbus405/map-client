@@ -1,0 +1,42 @@
+.newroutes-wrapper {
+  position: absolute;
+  bottom: 0;
+  top: 52px;
+  right: 0;
+  left: 0;
+  overflow-y: auto;
+  padding: 8px;
+
+  .newroutes-total {
+  	display: grid;
+  	grid-template-columns: repeat(3, 1fr);
+  	margin: 32px 0;
+  	text-align: center;
+
+  	div:nth-child(1):before {
+  		@extend .icon-format;
+			background-image: url('../image/ic_duration.png');
+  	}
+
+  	div:nth-child(2):before {
+  		@extend .icon-format;
+  		background-image: url('../image/ic_route.png');
+  	}
+
+  	div:nth-child(3):before {
+  		@extend .icon-format;
+  		background-image: url('../image/ic_fire.png');		
+  	}
+  }
+}
+
+.icon-format {
+	content: "";
+	margin-right: 2px;
+	display: inline-block;
+	height: 16px;
+	width: 16px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;		
+}

@@ -1,0 +1,55 @@
+.routebar-wrapper{
+	display: grid;
+	grid-template-columns: 8fr 2fr;
+	padding: 8px;
+
+	.routebar-left {
+		border: 1px solid black;
+		border-radius: 4px;
+
+		.routebar-transport {
+			display: flex;
+			justify-content: center;
+			border-bottom: 1px solid black;
+			padding: 4px;
+
+			div {
+				padding: 4px 6px;
+				text-align: center;
+			}
+
+			div:nth-child(1) {
+				background-color: black;
+				color: white;
+			}
+		}
+
+		.routebar-info {
+			display: flex;
+			// justify-content: center;
+			padding: 8px;
+
+			div {
+				padding: 4px;
+			}
+
+			div:nth-child(1) {
+				font-weight: bold;
+			}
+
+			div:nth-child(2) {
+				font-size: .9rem;
+				color: rgba(0, 0, 0, .54);
+			}
+
+			div:nth-child(3) {
+				@extend div:nth-child(2);
+			}
+		}
+	}
+
+	.routebar-right {
+    justify-self: center;
+    font-size: .9rem;
+	}
+}

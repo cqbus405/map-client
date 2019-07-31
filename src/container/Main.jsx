@@ -110,7 +110,7 @@ class Main extends Component {
 	 * @Author   q
 	 * @DateTime 2019-05-03T23:46:52+0800
 	 */
-	handleSearchBtnClick() {
+	async handleSearchBtnClick() {
 		const { dispatch, isFetching, places } = this.props
 
 		for (let i = 0; i < places.length; ++i) {
@@ -130,9 +130,10 @@ class Main extends Component {
 		}
 
 		const url = 'https://api.cqbus405.com/routes'
-		dispatch(httpRequest(url, null, bodyToSend, 'POST', 'routes'))
+		await dispatch(httpRequest(url, null, bodyToSend, 'POST', 'routes'))
 		if (!isFetching) {
-			this.props.history.push('/routes')
+			// this.props.history.push('/routes')
+			this.props.history.push('/newroutes')
 		}
 	}
 

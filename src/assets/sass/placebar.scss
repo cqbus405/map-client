@@ -1,0 +1,65 @@
+.placebar-wrapper {
+	display: grid;
+  grid-template-columns: 6fr 1fr 1.5fr 1.5fr;		
+  place-items: center center;
+  column-gap: 4px;
+  padding: 8px;
+
+	.placebar-address {
+    justify-self: start;
+		
+		div:nth-child(1) {
+	    font-size: 1rem;
+	    font-weight: bold;
+		}
+
+		div:nth-child(2) {
+	    font-size: .9rem;
+    	color: rgba(0, 0, 0, .54);		
+		}
+	}
+
+	// .placebar-address:before {
+	// 	content: "";
+	// 	margin-right: 2px;
+	// 	display: inline-block;
+	// 	height: 16px;
+	// 	width: 16px;
+	// 	background-image: url('../image/ic_location.svg');
+	// 	background-repeat: no-repeat;
+	// 	background-position: center;
+	// 	background-size: cover;				
+	// }
+
+	.placebar-weather {
+		font-size: .9rem;
+		color: rgba(0, 0, 0, .54);
+	}
+
+	.placebar-weather:before {
+		content: "";
+		margin-right: 2px;
+		display: inline-block;
+		height: 16px;
+		width: 16px;
+		background-image: url('../image/ic_cloudy.svg');
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;		
+	}
+
+	.placebar-general {
+		font-size: .8rem;
+		p {
+			margin: 0;
+		}
+	}
+
+	.placebar-nearby {
+		@extend .placebar-general;
+	}
+
+	.placebar-hide {
+		@extend .placebar-general;
+	}
+}

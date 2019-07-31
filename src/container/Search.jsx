@@ -35,8 +35,8 @@ class Search extends Component {
 		const { dispatch } = this.props
 		dispatch(clearPlaces())
 
-		// this.props.history.push('/')
-		this.props.history.push('/newsearch')
+		this.props.history.push('/')
+		// this.props.history.push('/newsearch')
 	}
 
 	/**
@@ -86,7 +86,7 @@ class Search extends Component {
 	render() {
 		return (
 			<div className="searchlist">
-				<div>
+				<div className="searchbar">
 					<div className="backbtn" onClick={this.handleBackBtnClick}></div>
 					<input type="text" placeholder="请输入地址" onChange={this.handleInputChange} ref={this.inputBoxRef} />
 				</div>
