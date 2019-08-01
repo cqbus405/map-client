@@ -158,12 +158,13 @@ class SearchNew extends Component {
 				}
 			}]
 		}
-
-		this.handleSearchBtnClick = this.handleSearchBtnClick.bind(this)
 	}
 
-	handleSearchBtnClick() {
-		this.props.history.push('/search')
+	handleItemClick(index) {
+		console.log(index)
+		if (index === 8) {
+			this.props.history.push('/place')
+		}
 	}
 
 	render() {
@@ -172,7 +173,7 @@ class SearchNew extends Component {
 				<div className="s-search-wrapper">
 					<div className="s-search-bar">
 						<div>重庆</div>
-						<div onClick={this.handleSearchBtnClick}>请输入目的地（街道、餐厅、景区等）</div>
+						<div>请输入目的地（街道、餐厅、景区等）</div>
 					</div>
 					<div className="s-filter">
 						<div>住宿</div>
@@ -191,7 +192,7 @@ class SearchNew extends Component {
 					<div className="s-content">
 						{this.state.fakeData.map((item, key) => {
 							return (
-								<div key={key} className="s-item">
+								<div key={key} className="s-item" onClick={this.handleItemClick.bind(this, key)}>
 									<img src={item.cover} alt={item.name} />
 									<div className="s-info">
 										<div>{item.name}</div>

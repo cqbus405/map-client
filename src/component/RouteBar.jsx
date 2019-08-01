@@ -2,7 +2,7 @@ import React from 'react'
 import '../assets/sass/routebar.scss'
 
 const RouteBar = props => {
-	let { route } = props
+	let { route, goToNewSearch } = props
 
 	return (
 		<div className="routebar-wrapper">
@@ -21,7 +21,10 @@ const RouteBar = props => {
 					<div>25个热门</div>
 				</div>
 			</div>
-			<div className="routebar-right">沿途热门</div>
+			<div className="routebar-right">
+				<div onClick={goToNewSearch}>沿途</div>
+				<div>结伴</div>
+			</div>
 		</div>
 	)
 }

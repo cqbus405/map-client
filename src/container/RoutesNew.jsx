@@ -37,11 +37,22 @@ class Routes extends Component {
 			totalDistance
 		}
 
-		this.handleClick = this.handleClick.bind(this)
+		this.handleEditBtnClick = this.handleEditBtnClick.bind(this)
+		this.handleMapBtnClick = this.handleMapBtnClick.bind(this)
+
+		this.goToNewSearch = this.goToNewSearch.bind(this)
 	}
 
-	handleClick(event, index) {
+	handleEditBtnClick() {
+		this.props.history.push('/main')
+	}
+
+	handleMapBtnClick() {
 		this.props.history.push('/map')
+	}
+
+	goToNewSearch() {
+		this.props.history.push('/newsearch')
 	}
 
 	render() {
@@ -53,14 +64,18 @@ class Routes extends Component {
 			<div>
 				<Header />
 				<div className="newroutes-wrapper">
-					
 					{displayList.map((item, key) => {
-						return key % 2 === 0 ? <PlaceBar key={key} place={item} /> : <RouteBar key={key} route={item} />
+						return key % 2 === 0 ? <PlaceBar key={key} place={item} goToNewSearch={this.goToNewSearch} /> : <RouteBar key={key} route={item} goToNewSearch={this.goToNewSearch} />
 					})}
 					<div className="newroutes-total">
-						<div>{(parseFloat(totalDuration) / 60).toFixed(1) + '分钟'}</div>
-						<div>{(parseFloat(totalDistance) / 1000).toFixed(2) + '公里'}</div>
-						<div>25个热门</div>
+						<div><b>{(parseFloat(totalDuration) / 60).toFixed(1)}</b>分钟</div>
+						<div><b>{(parseFloat(totalDistance) / 1000).toFixed(2)}</b>'公里'</div>
+					</div>
+					<div className="newroutes-btn-group">
+						<div onClick={this.handleEditBtnClick}>编辑</div>
+						<div>保存</div>
+						<div>发布</div>
+						<div onClick={this.handleMapBtnClick}>地图</div>
 					</div>
 				</div>
 			</div>

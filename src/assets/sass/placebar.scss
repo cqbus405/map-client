@@ -1,20 +1,23 @@
 .placebar-wrapper {
 	display: grid;
-  grid-template-columns: 6fr 1fr 1.5fr 1.5fr;		
+  grid-template-columns: 6fr 2fr 2fr;		
   place-items: center center;
   column-gap: 4px;
   padding: 8px;
 
 	.placebar-address {
     justify-self: start;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
 		
 		div:nth-child(1) {
-	    font-size: 1rem;
+	    font-size: .9rem;
 	    font-weight: bold;
 		}
 
 		div:nth-child(2) {
-	    font-size: .9rem;
+	    font-size: .8rem;
     	color: rgba(0, 0, 0, .54);		
 		}
 	}
@@ -47,19 +50,27 @@
 		background-position: center;
 		background-size: cover;		
 	}
-
-	.placebar-general {
-		font-size: .8rem;
-		p {
+	
+	.placebar-btn-group	{
+		div {
+			display: inline;
 			margin: 0;
+			padding: 4px;
+			font-size: .9rem;
+	    border-radius: 4px;
 		}
-	}
 
-	.placebar-nearby {
-		@extend .placebar-general;
-	}
+		div:nth-child(2) {
+			margin-left: 8px;
+			padding: 0;
+			background-color: transparent;
 
-	.placebar-hide {
-		@extend .placebar-general;
+			img {
+				display: inline;
+				height: 20px;
+		    width: 20px;
+		    vertical-align: middle;
+			}
+		}
 	}
 }

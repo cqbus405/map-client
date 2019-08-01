@@ -1,8 +1,9 @@
 import React from 'react'
 import '../assets/sass/placebar.scss'
+import ic_eye from '../assets/image/ic_eye.svg'
 
 const PlaceBar = props => {
-	let { place } = props
+	let { place, goToNewSearch } = props
 
 	return (
 		<div className="placebar-wrapper">
@@ -11,8 +12,10 @@ const PlaceBar = props => {
 				<div>{place.province + '-' + place.city + '-' + place.district}</div>
 			</div>
 			<div className="placebar-weather">27℃</div>
-			<div className="placebar-nearby"><p>周边<br/>热门</p></div>
-			<div className="placebar-hide"><p>隐藏</p></div>
+			<div className="placebar-btn-group">
+				<div onClick={goToNewSearch}>周边</div>
+				<div><img src={ic_eye} alt="隐藏" /></div>
+			</div>
 		</div>
 	)
 }

@@ -6,6 +6,7 @@
 	.routebar-left {
 		border: 1px solid black;
 		border-radius: 4px;
+		background-color: white;
 
 		.routebar-transport {
 			display: flex;
@@ -51,5 +52,13 @@
 	.routebar-right {
     justify-self: center;
     font-size: .9rem;
+
+    div {
+    	padding: 8px 16px;
+    	border-radius: 4px;
+    	background-color: #efb952;
+    	color: white;
+    	margin-bottom: 4px;
+    }
 	}
 }
