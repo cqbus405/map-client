@@ -39,8 +39,8 @@ class Place extends Component {
 							<div className="place-comment">
 								<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1564659459878&di=4079840ea0e36ed001a5d8aa0626f2b1&imgtype=0&src=http%3A%2F%2Ftct.ganjistatic1.com%2Fgjfsqq%2Fgjupload%2Fc6fcef1a30fa4fcba948f5331f680c49_600-0_6-0.jpg" alt="avatar" />
 								<div>
-									<div>傻强</div>
-									<div>2分钟前</div>
+									<div>东东</div>
+									<div className="place-comment-time">2分钟前</div>
 								</div>
 								<div className="place-comment-add">关注</div>
 								<div className="place-comment-text">第一次参观科技馆，颠覆了我们很多常识，科技馆应该是衡量一个城市的竞争力之一。重庆科技馆位于长江与嘉陵江交汇处的重庆江北嘴中央商务区（CBD）核心区域，
