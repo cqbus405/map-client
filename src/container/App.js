@@ -5,9 +5,12 @@ import { PersistGate } from 'redux-persist/integration/react'
 import store from '../store/store'
 import Main from './Main'
 import Search from './Search'
-import Routes from './Routes'
+// import Routes from './Routes'
 import Map from './Map'
 import FirstPage from './FirstPage'
+import SearchNew from './SearchNew'
+import RoutesNew from './RoutesNew'
+import Place from './Place'
 
 const App = () => (
 	<Provider store={store.store}>
@@ -17,8 +20,10 @@ const App = () => (
 				<Route path="/main" exact component={Main} />
 				<Route path="/search" exact component={Search} />
 				<Route path="/firstpage" exact component={FirstPage} />
-				<Route path="/routes" exact component={Routes} />
 				<Route path="/map" exact component={Map} />
+				<Route path="/newsearch" exact component={SearchNew} />
+				<Route path="/newroutes" exact component={RoutesNew} />
+				<Route path="/place" exact component={Place} />
 			</Router>
 		</PersistGate>
 	</Provider>

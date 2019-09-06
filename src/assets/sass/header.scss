@@ -1,22 +1,22 @@
 @import url('https://fonts.googleapis.com/css?family=Dancing+Script&display=swap');
 
 .header {
-	height: 24px;
-	padding: 16px;
+	height: 32px;
+	padding: 10px 16px;
 	color: rgba(0, 0, 0, .87);
-	// box-shadow: 0 3px 5px lightgrey;
+	box-shadow: 0 1px 10px lightgrey;
 	background-color: white;
 
 	img {
-		height: 24px;
-		width: 24px;
-		margin-right: 32px;
+		display: inline-block;
+		height: 32px;
+		width: 32px;
+		margin-right: 16px;
 	}
 
 	span {
 		display: inline-block;
-		position: relative;
-		line-height: 24px;
+		line-height: 32px;
 		vertical-align: top;
 		font-family: 'Dancing Script', cursive;
 		font-size: 20px;

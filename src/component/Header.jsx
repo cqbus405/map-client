@@ -1,12 +1,12 @@
 import React from 'react'
 import '../assets/sass/header.scss'
-import logo from '../assets/image/ic_logo.png'
+import logo from '../assets/image/logo.png'
 
 const Header = () => {
 	return (
 		<div className="header">
 			<img src={logo} alt="logo" />
-			<span>EzGoing</span>
+			<span>一咻</span>
 		</div>
 	)
 }
