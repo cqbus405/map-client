@@ -1,0 +1,21 @@
+.footer-wrapper {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 10%;
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+
+	.footer-item {
+
+		.footer-icon {
+			position: relative;
+	    top: 50%;
+	    left: 50%;
+	    transform: translate(-50%, -50%);
+	    height: 24px;
+	    width: 24px;
+		}
+	}
+}
