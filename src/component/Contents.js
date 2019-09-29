@@ -1,8 +1,9 @@
 import React from 'react'
+import BuildImage from './BuildImage'
 
 const Contents = props => {
 	return (
-		<div>This is Contents (1)</div>
+		<BuildImage />
 	)
 }
 

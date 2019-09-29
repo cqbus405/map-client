@@ -57,7 +57,7 @@ class Wrapper extends Component {
 		let currentPage = this.state.pages[currentKey].page
 		let Page = require(`../component/${currentPage}.js`).default // .default !!!
 		return (
-			<div>
+			<div className="wrapper">
 				<Page />
 				<Footer handleClick={this.handleFooterBtnClick} items={this.state.pages} />
 			</div>

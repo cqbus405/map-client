@@ -1,8 +1,9 @@
 import React from 'react'
+import BuildImage from './BuildImage'
 
 const Search = props => {
 	return (
-		<div>This is Search (3)</div>
+		<BuildImage />
 	)
 }
 
