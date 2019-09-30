@@ -1,5 +1,4 @@
 import React from 'react'
-import '../assets/sass/footer.scss'
 
 const Footer = props => {
 	const handleClick = props.handleClick
