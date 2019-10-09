@@ -1,7 +1,9 @@
-.route {
+.route-wrapper {
 	padding: 16px;
 
-	input {
-		border-bottom: 1px solid black;
+	.route-form {
+		input {
+			border-bottom: 1px solid black;
+		}
 	}
 }
