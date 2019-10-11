@@ -9,9 +9,11 @@ const InputLine = props => {
 	let btnColor = '#2A7FF6'
 	if (btnType === 2) btnColor = '#D81E06' 
 
+	const name = props.btnObj.name
+
 	return (
 		<div className="inputline-wrapper">
-			<input type="text" />
+			<div onClick={props.handleInputBoxClick}>{name}</div>
 			<img src={btnImg} alt={btnText} style={{backgroundColor: btnColor}} onClick={props.handleClick} id={btnId} />
 		</div>
 	)

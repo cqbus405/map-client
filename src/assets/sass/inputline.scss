@@ -10,11 +10,14 @@
 		border-radius: 50%;
 	}
 
-	input {
+	div {
 		flex-grow: 1;
 		height: 47px;
+		line-height: 47px;
 		margin-right: 16px;
-		border-bottom: 1px solid #c5c5c5;
+		color: rgba(0, 0, 0, .27);
+		font-size: .9rem;
+		border-bottom: 1px solid #f1f1f1;
 		border-radius: 0;
 	}
 }

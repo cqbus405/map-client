@@ -3,12 +3,19 @@
 
 	div:nth-child(odd) {
 		flex-grow: 1;
+		
+		img {
+			height: 24px;
+			width: 24px;
+			padding: 4px;
+		}
 	}
 
 	div:nth-child(2) {
 		flex-grow: 3;
 		height: 35px;
 	  line-height: 35px;
+	  font-size: 1.3rem;
 	  text-align: center;
 	}
 

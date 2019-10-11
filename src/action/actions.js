@@ -6,8 +6,8 @@ export const HANDLE_ERROR = 'HANDLE_ERROR'
 export const GET = 'GET'
 export const GET_CURRENT_LOCATION = 'GET_CURRENT_LOCATION'
 export const CLEAR_PLACES = 'CLEAR_PLACES'
-export const ADD_PLACE = 'ADD_PLACE'
-export const DELETE_PLACE = 'DELETE_PLACE'
+export const ADD_DESTINATION = 'ADD_DESTINATION'
+export const REMOVE_DESTINATION = 'REMOVE_DESTINATION'
 export const CHOOSE_PLACE = 'CHOOSE_PLACE'
 export const SET_INDEX = 'SET_INDEX'
 
@@ -88,15 +88,15 @@ export const httpRequest = (url, values, body, method, type) => {
 	}
 }
 
-export const addPlace = () => {
+export const addDestination = () => {
 	return {
-		type: ADD_PLACE
+		type: ADD_DESTINATION
 	}
 }
 
-export const deletePlace = index => {
+export const deleteDestination = index => {
 	return {
-		type: DELETE_PLACE,
+		type: REMOVE_DESTINATION,
 		index
 	}
 }

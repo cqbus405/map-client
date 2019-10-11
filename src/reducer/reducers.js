@@ -5,8 +5,8 @@ import {
 	HANDLE_ERROR,
 	GET_CURRENT_LOCATION,
 	CLEAR_PLACES,
-	ADD_PLACE,
-	DELETE_PLACE,
+	ADD_DESTINATION,
+	REMOVE_DESTINATION,
 	CHOOSE_PLACE,
 	SET_INDEX
 } from '../action/actions'
@@ -36,18 +36,18 @@ const http = (state = {
 	}
 }
 
-const places = (state = [{}, {}], action) => {
+const places = (state = {start: {}, destinations: [{}]}, action) => {
 	switch (action.type) {
 		case GET_CURRENT_LOCATION:
 			state[0] = action.currentLocation
 			return [...state]
 
-		case ADD_PLACE:
-			return [...state, {}]
+		case ADD_DESTINATION:
+			return Object.assign(state, {destinations: [...state.destinations, {}]})
 
-		case DELETE_PLACE:
-			state.splice(action.index, 1)
-			return [...state]
+		case REMOVE_DESTINATION:
+			state.destinations.splice(action.index, 1)
+			return Object.assign(state, {destinations: [...state.destinations]})
 
 		case CHOOSE_PLACE:
 			const index = action.index
