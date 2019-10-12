@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import Footer from '../component/Footer'
 
 class Wrapper extends Component {
@@ -65,4 +66,4 @@ class Wrapper extends Component {
 	}
 }
 
-export default Wrapper
+export default connect()(Wrapper)
