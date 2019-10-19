@@ -3,8 +3,8 @@ import CreateRoute from '../component/CreateRoute'
 
 const mapStateToProps = state => {
 	return {
-		start: state.places.start,
-		destinations: state.places.destinations
+		start: state.start,
+		destinations: state.destinations
 	}
 }
 

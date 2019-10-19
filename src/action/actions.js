@@ -10,6 +10,7 @@ export const ADD_DESTINATION = 'ADD_DESTINATION'
 export const REMOVE_DESTINATION = 'REMOVE_DESTINATION'
 export const CHOOSE_PLACE = 'CHOOSE_PLACE'
 export const SET_INDEX = 'SET_INDEX'
+export const HANDLE_SEARCH_PLACE_RESULT = 'HANDLE_SEARCH_PLACE_RESULT'
 
 const isFetching = isFetching => {
 	return {
@@ -82,9 +83,22 @@ export const httpRequest = (url, values, body, method, type) => {
 					dispatch(handleError(code + ' ' + errmsg))
 				} else {
 					let data = json.data
-					dispatch(handleResponse(data, type))
+					// 1 搜索地点信息
+					type = typeof type === 'number' ? type : parseInt(type)
+					if (type === 1) {
+						dispatch(handleSearchPlaceResult(data))
+					} else {
+						dispatch(handleResponse(data, type))
+					}
 				}
 			})
+	}
+}
+
+export const handleSearchPlaceResult = data => {
+	return {
+		type: HANDLE_SEARCH_PLACE_RESULT,
+		data
 	}
 }
 

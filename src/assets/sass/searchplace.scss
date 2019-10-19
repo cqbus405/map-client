@@ -1,0 +1,22 @@
+.searchplace-wrapper {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+
+	.icon {
+		display: inline-block;
+		width: 100px;
+		height: 100px;
+		background-image: url("../image/ic_search_grey.svg");
+		background-repeat: no-repeat;
+		background-size: 60px 60px;
+		background-position: center center;
+		border: 1px solid black;
+	}
+
+	input {
+		border: 1px solid red;
+	}
+}
