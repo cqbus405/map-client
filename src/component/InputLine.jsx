@@ -13,7 +13,8 @@ const InputLine = props => {
 
 	return (
 		<div className="inputline-wrapper">
-			<div onClick={props.handleInputBoxClick}>{name}</div>
+
+			<div onClick={e => props.handleInputBoxClick(props.idx, e)}>{name}</div>
 			<img src={btnImg} alt={btnText} style={{backgroundColor: btnColor}} onClick={props.handleClick} id={btnId} />
 		</div>
 	)

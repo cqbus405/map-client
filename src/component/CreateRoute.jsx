@@ -30,8 +30,8 @@ class CreateRoute extends Component {
 		this.props.dispatch(deleteDestination(index))
 	}
 
-	handleInputBoxClick(e) {
-		console.log('clicked')
+	handleInputBoxClick(idx, e) {
+		console.log(idx)
 	}
 
 	render() {
@@ -49,7 +49,7 @@ class CreateRoute extends Component {
 						{
 							this.props.destinations.map((item, key) => {
 								const name = item.name ? item.name : '输入目的地...' 
-								return <InputLine key={key} btnObj={{btnImg: icCross, btnText: '删除', btnId: key, btnType: 2, name}} handleClick={this.handleDeleteBtnClick} handleInputBoxClick={this.handleInputBoxClick} />
+								return <InputLine key={key} idx={key} btnObj={{btnImg: icCross, btnText: '删除', btnId: key, btnType: 2, name}} handleClick={this.handleDeleteBtnClick} handleInputBoxClick={this.handleInputBoxClick} />
 							})
 						}
 					</form>

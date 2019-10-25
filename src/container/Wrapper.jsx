@@ -56,7 +56,7 @@ class Wrapper extends Component {
 	render() {
 		let currentKey = this.state.current
 		let currentPage = this.state.pages[currentKey].page
-		let Page = require(`../component/${currentPage}.js`).default // .default !!!
+		let Page = require(`../component/${currentPage}.jsx`).default // .default !!!
 		return (
 			<div className="wrapper">
 				<Page />
