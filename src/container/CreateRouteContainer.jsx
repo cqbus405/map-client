@@ -4,7 +4,8 @@ import CreateRoute from '../component/CreateRoute'
 const mapStateToProps = state => {
 	return {
 		start: state.start,
-		destinations: state.destinations
+		destinations: state.destinations,
+		isSearchDialogOpen: state.dialogSwitch.searchDialog
 	}
 }
 

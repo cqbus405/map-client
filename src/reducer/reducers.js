@@ -1,46 +1,38 @@
 import { combineReducers } from 'redux'
 import { 
-	IS_FETCHING, 
-	HANDLE_RESPONSE, 
-	HANDLE_ERROR,
-	GET_CURRENT_LOCATION,
-	CLEAR_PLACES,
+	GET_PLACE_SUGGESTION,
+	IS_FETCHING,
+	CLEAR_PLACE_SUGGESTION,
 	ADD_DESTINATION,
 	REMOVE_DESTINATION,
-	CHOOSE_PLACE,
-	SET_INDEX,
-	HANDLE_SEARCH_PLACE_RESULT
-} from '../action/actions'
+	OPEN_OR_CLOSE_SEARCH_DIALOG
+} from '../action/createRouteAction'
 
-const http = (state = {
+const placeSuggestion = (state = {
 	isFetching: false,
-	error: null,
-	data: {}
+	statusCode: 0,
+	errorMessage: 'ok',
+	suggestions: null
 }, action) => {
 	switch (action.type) {
+		case GET_PLACE_SUGGESTION:
+			return Object.assign(state, {
+				statusCode: action.statusCode,
+				errorMessage: action.errorMessage,
+				suggestions: [...action.suggestions],
+				isFetching: action.isFetching
+			})
+
 		case IS_FETCHING:
-			return Object.assign({}, state, {isFetching: action.isFetching})
+			return Object.assign(state, {isFetching: action.isFetching})
 
-		case HANDLE_RESPONSE:
-			let dataToStore = {}
-			dataToStore[action.dataType] = action.data
-			return Object.assign({}, state, {data: dataToStore})
-
-		case HANDLE_ERROR:
-			return Object.assign({}, state, {error: action.error})
-
-		case CLEAR_PLACES:
-			return Object.assign({}, state, {data: {places: []}})
-
-		default:
-			return state
-	}
-}
-
-const searchPlaceResult = (state = [], action) => {
-	switch (action.type) {
-		case HANDLE_SEARCH_PLACE_RESULT:
-			return action.data
+		case CLEAR_PLACE_SUGGESTION:
+			return Object.assign(state, {
+				isFetching: false,
+				statusCode: 0,
+				errorMessage: 'ok',
+				suggestions: []
+			})
 
 		default:
 			return state
@@ -68,37 +60,10 @@ const destinations = (state = [{}], action) => {
 	}
 }
 
-const places = (state = {start: {}, destinations: [{}]}, action) => {
+const dialogSwitch = (state = {searchDialog: false}, action) => {
 	switch (action.type) {
-		case GET_CURRENT_LOCATION:
-			state[0] = action.currentLocation
-			return [...state]
-
-		// case ADD_DESTINATION:
-		// 	return Object.assign(state, {destinations: [...state.destinations, {}]})
-
-		// case REMOVE_DESTINATION:
-		// 	state.destinations.splice(action.index, 1)
-		// 	return Object.assign(state, {destinations: [...state.destinations]})
-
-		case CHOOSE_PLACE:
-			const index = action.index
-			const place = action.place
-			state[index] = place
-			return [...state]
-
-		default:
-			return state
-	}
-}
-
-const place = (state = {
-	index: 0,
-	name: ''
-}, action) => {
-	switch (action.type) {
-		case SET_INDEX:
-			return Object.assign({}, state, {index: action.index})
+		case OPEN_OR_CLOSE_SEARCH_DIALOG:
+			return Object.assign({searchDialog: action.isOpen})
 
 		default:
 			return state
@@ -106,12 +71,10 @@ const place = (state = {
 }
 
 const reducer = combineReducers({
-	http,
-	places,
-	place,
+	placeSuggestion,
 	start,
 	destinations,
-	searchPlaceResult
+	dialogSwitch
 })
 
 export default reducer

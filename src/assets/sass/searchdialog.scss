@@ -5,29 +5,39 @@
 	left: 0;
 	right: 0;
 	bottom: 0;
+	background-color: white;
 
 	.searchplace-header {
-		margin: 16px 8px 0;
+		display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+		margin: 16px;
 
 		img {
-			width: 18px;
-	    height: 18px;
-	    padding: 8px;
+			width: 24px;
+	    height: 24px;
+	    padding: 4px;
+		}
+
+		div {
+			text-align: center;
+			font-size: 1.1rem;
 		}
 	}
 
 	.searchplace-input-wrapper {
 		display: flex;
 		align-items: center;
-		height: 36px;
+		height: 45px;
 		margin: 0 16px;
-		border: 1px solid lightgrey;
+		border-radius: 50px;
+		background-color: #e8e7e7;
 
 		.icon {
 			display: inline-block;
-			width: 24px;
-			height: 24px;
-			margin: 8px;
+			width: 18px;
+			height: 18px;
+			margin: 16px;
 			background-image: url("../image/ic_search_grey.svg");
 			background-repeat: no-repeat;
 			background-size: 100% 100%;
@@ -37,6 +47,8 @@
 		input {
 			flex-grow: 1;
 			height: 100%;
+			font-size: 1rem;
+			background-color: transparent;
 		}
 	}
 }

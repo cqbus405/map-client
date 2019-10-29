@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import Header from './Header'
 import InputLine from './InputLine'
-import SearchPlace from './SearchPlace'
+import SearchDialog from './SearchDialog'
 import { 
 	addDestination,
-	deleteDestination
-} from '../action/actions'
+	deleteDestination,
+	openOrCloaseSearchDialog
+} from '../action/createRouteAction'
 import icAdd from '../assets/image/ic_add.svg'
 import icCross from '../assets/image/ic_cross.svg'
 
@@ -16,6 +17,7 @@ class CreateRoute extends Component {
 		this.handleAddBtnClick = this.handleAddBtnClick.bind(this)
 		this.handleDeleteBtnClick = this.handleDeleteBtnClick.bind(this)
 		this.handleInputBoxClick = this.handleInputBoxClick.bind(this)
+		this.closeSearchDialog = this.closeSearchDialog.bind(this)
 	}
 
 	handleAddBtnClick() {
@@ -32,6 +34,11 @@ class CreateRoute extends Component {
 
 	handleInputBoxClick(idx, e) {
 		console.log(idx)
+		this.props.dispatch(openOrCloaseSearchDialog(true))
+	}
+
+	closeSearchDialog(e) {
+		this.props.dispatch(openOrCloaseSearchDialog(false))
 	}
 
 	render() {
@@ -54,7 +61,7 @@ class CreateRoute extends Component {
 						}
 					</form>
 				</div>
-				<SearchPlace />
+				<SearchDialog isOpen={this.props.isSearchDialogOpen} closeSearchDialog={this.closeSearchDialog} />
 			</div>
 		)
 	}
