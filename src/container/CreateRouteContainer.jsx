@@ -5,7 +5,8 @@ const mapStateToProps = state => {
 	return {
 		start: state.start,
 		destinations: state.destinations,
-		isSearchDialogOpen: state.dialogSwitch.searchDialog
+		isSearchDialogOpen: state.dialogSwitch.searchDialog,
+		placeSuggestions: state.placeSuggestion.suggestions
 	}
 }
 

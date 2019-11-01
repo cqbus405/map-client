@@ -6,8 +6,10 @@ export const CLEAR_PLACE_SUGGESTION = 'CLEAR_PLACE_SUGGESTION'
 export const ADD_DESTINATION = 'ADD_DESTINATION'
 export const REMOVE_DESTINATION = 'REMOVE_DESTINATION'
 export const OPEN_OR_CLOSE_SEARCH_DIALOG = 'OPEN_OR_CLOSE_SEARCH_DIALOG'
+export const SAVE_PLACE_DETAIL = 'SAVE_PLACE_DETAIL'
+export const SAVE_START = 'SAVE_START'
 
-const BASE_URL = 'http://localhost:3001'
+const BASE_URL = 'http://172.168.10.21:3001'
 
 export const isFetching = isFetching => {
 	return {
@@ -57,5 +59,34 @@ export const openOrCloaseSearchDialog = isOpen => {
 	return {
 		type: OPEN_OR_CLOSE_SEARCH_DIALOG,
 		isOpen
+	}
+}
+
+export const getPlaceDetail = (uid, index) => {
+	return dispatch => {
+		return fetch(`${BASE_URL}/place/detail?uid=${uid}`)
+		.then(res => res.json())
+		.then(body => {
+			if (index !== undefined) {
+				dispatch(savePlaceDetail(index, body))
+			} else {
+				dispatch(saveStart(body))
+			}
+		})
+	}
+}
+
+const savePlaceDetail = (index, data) => {
+	return {
+		type: SAVE_PLACE_DETAIL,
+		detail: data.data,
+		index
+	}
+}
+
+const saveStart = data => {
+	return {
+		type: SAVE_START,
+		detail: data.data
 	}
 }

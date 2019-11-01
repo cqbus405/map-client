@@ -31,9 +31,9 @@
 		height: 45px;
 		margin: 0 16px;
 		border-radius: 50px;
-		background-color: #e8e7e7;
+		background-color: #e8e7e7c9;
 
-		.icon {
+		.search-icon {
 			display: inline-block;
 			width: 18px;
 			height: 18px;
@@ -49,6 +49,34 @@
 			height: 100%;
 			font-size: 1rem;
 			background-color: transparent;
+		}
+	}
+
+	.searchplace-results {
+		padding: 8px 24px;
+
+		li {
+			display: flex;
+			align-items: center;
+			padding: 12px 0;
+			color: rgba(0, 0, 0, .54);
+			border-bottom: 1px solid #f1f1f1;
+
+			.location-icon {
+				display: inline-block;
+				width: 24px;
+				height: 24px;
+				margin-right: 4px;
+				background-image: url("../image/ic_location.svg");
+				background-repeat: no-repeat;
+				background-size: 100% 100%;
+				background-position: center center;
+			}
+
+			div {
+				font-size: .9rem;
+				text-align: justify;
+			}
 		}
 	}
 }

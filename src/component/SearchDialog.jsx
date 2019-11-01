@@ -16,10 +16,19 @@ const SearchDialog = props => {
 				<div></div>
 			</div>
 			<div className="searchplace-input-wrapper">
-				<i className="icon"></i>
-				<input type="text" placeholder="输入地址" />
+				<i className="search-icon"></i>
+				<input type="text" placeholder="输入地址" onChange={props.handleSearchDialogInputChange} ref={props.inputRef} />
 			</div>
-			<ul></ul>
+			<ul className="searchplace-results">{
+				props.placeSuggestions.map((item, key) => {
+					return (
+						<li key={key} onClick={e => props.choosePlace(key, e)}>
+							<i className="location-icon"></i>
+							<div>{item.province + '-' + item.city + '-' + item.district + '-' + item.name}</div>
+						</li>
+					)
+				})
+			}</ul>
 		</div>
 	)
 }
