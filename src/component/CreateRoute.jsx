@@ -1,4 +1,4 @@
-import React, { Component, createRef } from 'react'
+import React, { Component } from 'react'
 import Header from './Header'
 import InputLine from './InputLine'
 import SearchDialog from './SearchDialog'
@@ -25,7 +25,8 @@ class CreateRoute extends Component {
 		this.choosePlace = this.choosePlace.bind(this)
 
 		this.state = {
-			idx: 0
+			idx: 0,
+			name: ''
 		}
 	}
 
@@ -42,26 +43,30 @@ class CreateRoute extends Component {
 	}
 
 	handleInputBoxClick(idx, e) {
-		this.props.dispatch(openOrCloaseSearchDialog(true))
+		let name = ''
+		if (idx !== undefined) {
+			name = this.props.destinations[idx].name
+		} else {
+			name = this.props.start.name
+		}
 		this.setState({
-			idx
-		})
+			idx,
+			name
+		})		
+		this.props.dispatch(openOrCloaseSearchDialog(true))
 	}
 
 	closeSearchDialog(e) {
 		this.props.dispatch(openOrCloaseSearchDialog(false))
 		this.props.dispatch(clearPlaceSuggestion())
-		this.inputElement.value = ''
+		this.setState({name: ''})
 	}
 
 	handleSearchDialogInputChange(e) {
 		let inputValue = e.currentTarget.value.trim()
+		this.setState({name: inputValue})
 		if (inputValue) {
 			this.props.dispatch(getPlaceSuggestion(inputValue, '重庆'))
-			let newState = Object.assign({}, this.state, {
-				place: inputValue
-			})
-			this.setState(newState)
 		} else {
 			this.props.dispatch(clearPlaceSuggestion())
 		}
@@ -73,30 +78,64 @@ class CreateRoute extends Component {
 		
 		this.props.dispatch(openOrCloaseSearchDialog(false))
 		this.props.dispatch(clearPlaceSuggestion())
-		this.inputElement.value = ''
+		this.setState({name: ''})
 	}
 
 	render() {
 		return (
 			<div>
 				<div className="route-wrapper">
-					<Header title="路线规划" />
+					<Header 
+						title="路线规划" 
+					/>
 					<form className="route-form">
 						<label>起点</label>
 						<br />
-	 					<InputLine btnObj={{btnImg: icAdd, btnText: '新增', btnId: 1, btnType: 1, name: this.props.start.name ? this.props.start.name : '输入起点...' }} handleClick={this.handleAddBtnClick} handleInputBoxClick={this.handleInputBoxClick} />
+	 					<InputLine 
+	 						btnObj={{
+	 							btnImg: icAdd, 
+	 							btnText: '新增', 
+	 							btnId: 1, 
+	 							btnType: 1, 
+	 							name: this.props.start.name ? this.props.start.name : '输入起点...' 
+	 						}} 
+	 						handleClick={this.handleAddBtnClick} 
+	 						handleInputBoxClick={this.handleInputBoxClick} 
+	 					/>
 						<br />
 						<label>终点</label>
 						<br />
 						{
 							this.props.destinations.map((item, key) => {
 								const name = item.name ? item.name : '输入目的地...' 
-								return <InputLine key={key} idx={key} btnObj={{btnImg: icCross, btnText: '删除', btnId: key, btnType: 2, name}} handleClick={this.handleDeleteBtnClick} handleInputBoxClick={this.handleInputBoxClick} />
+								return (
+									<InputLine 
+										key={key} 
+										idx={key} 
+										btnObj={{
+											btnImg: icCross, 
+											btnText: '删除', 
+											btnId: key, 
+											btnType: 2, 
+											name
+										}} 
+										handleClick={this.handleDeleteBtnClick} 
+										handleInputBoxClick={this.handleInputBoxClick} 
+									/>
+								)
 							})
 						}
 					</form>
 				</div>
-				<SearchDialog isOpen={this.props.isSearchDialogOpen} closeSearchDialog={this.closeSearchDialog} placeSuggestions={this.props.placeSuggestions} handleSearchDialogInputChange={this.handleSearchDialogInputChange} inputRef={input => this.inputElement = input} choosePlace={this.choosePlace} />
+				<SearchDialog 
+					name={this.state.name} 
+					isOpen={this.props.isSearchDialogOpen} 
+					closeSearchDialog={this.closeSearchDialog} 
+					placeSuggestions={this.props.placeSuggestions} 
+					handleSearchDialogInputChange={this.handleSearchDialogInputChange} 
+					inputRef={input => this.inputElement = input} 
+					choosePlace={this.choosePlace} 
+				/>
 			</div>
 		)
 	}

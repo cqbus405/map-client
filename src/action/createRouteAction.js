@@ -9,7 +9,8 @@ export const OPEN_OR_CLOSE_SEARCH_DIALOG = 'OPEN_OR_CLOSE_SEARCH_DIALOG'
 export const SAVE_PLACE_DETAIL = 'SAVE_PLACE_DETAIL'
 export const SAVE_START = 'SAVE_START'
 
-const BASE_URL = 'http://172.168.10.21:3001'
+// const BASE_URL = 'http://localhost:3001'
+const BASE_URL = 'http://192.168.31.214:3001'
 
 export const isFetching = isFetching => {
 	return {

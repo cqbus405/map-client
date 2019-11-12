@@ -17,7 +17,13 @@ const SearchDialog = props => {
 			</div>
 			<div className="searchplace-input-wrapper">
 				<i className="search-icon"></i>
-				<input type="text" placeholder="输入地址" onChange={props.handleSearchDialogInputChange} ref={props.inputRef} />
+				<input 
+					type="text" 
+					placeholder="输入地址" 
+					onChange={props.handleSearchDialogInputChange} 
+					ref={props.inputRef} 
+					value={props.name || ''} 
+				/>
 			</div>
 			<ul className="searchplace-results">{
 				props.placeSuggestions.map((item, key) => {
