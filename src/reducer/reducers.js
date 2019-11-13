@@ -7,7 +7,8 @@ import {
 	REMOVE_DESTINATION,
 	OPEN_OR_CLOSE_SEARCH_DIALOG,
 	SAVE_PLACE_DETAIL,
-	SAVE_START
+	SAVE_START,
+	SAVE_ROUTE
 } from '../action/createRouteAction'
 
 const placeSuggestion = (state = {
@@ -79,11 +80,22 @@ const dialogSwitch = (state = {searchDialog: false}, action) => {
 	}
 }
 
+const routeData = (state = {}, action) => {
+	switch (action.type) {
+		case SAVE_ROUTE:
+			return Object.assign({}, action.routeData)
+
+		default:
+			return state
+	}
+}
+
 const reducer = combineReducers({
 	placeSuggestion,
 	start,
 	destinations,
-	dialogSwitch
+	dialogSwitch,
+	routeData
 })
 
 export default reducer

@@ -23,6 +23,7 @@ class CreateRoute extends Component {
 		this.closeSearchDialog = this.closeSearchDialog.bind(this)
 		this.handleSearchDialogInputChange = this.handleSearchDialogInputChange.bind(this)
 		this.choosePlace = this.choosePlace.bind(this)
+		this.handleNextStepClick = this.handleNextStepClick.bind(this)
 
 		this.state = {
 			idx: 0,
@@ -81,12 +82,29 @@ class CreateRoute extends Component {
 		this.setState({name: ''})
 	}
 
+	handleNextStepClick() {
+		const {start, destinations} = this.props
+		if (JSON.stringify(start) === '{}') {
+			window.alert('未输入起点')
+			return
+		}
+
+		for (let i = 0; i < destinations.length; ++i) {
+			if (JSON.stringify(destinations[i]) === '{}') {
+				window.alert('有未输入的目的地')
+				return
+			}			
+		}
+
+		this.props.history.push('/route/result')
+	}
+
 	render() {
 		return (
 			<div>
 				<div className="route-wrapper">
 					<Header 
-						title="路线规划" 
+						title="路线规划" handleNextStepClick={this.handleNextStepClick}
 					/>
 					<form className="route-form">
 						<label>起点</label>

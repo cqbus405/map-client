@@ -1,5 +1,6 @@
 .header-wrapper {
 	display: flex;
+	align-items: center;
 
 	div:nth-child(odd) {
 		flex-grow: 1;

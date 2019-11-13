@@ -6,9 +6,11 @@ const Header = props => {
 	const title = props.title ? props.title : '标题' 
 	return (
 		<div className="header-wrapper">
-			<div><img src={icLeftArrow} alt="退后" /></div>
+			{/* <div><img src={icLeftArrow} alt="退后" /></div> */}
+			<div>返&emsp;回</div>
 			<div>{title}</div>
-			<div><img src={icRightArrow} alt="下一步" /></div>
+			{/* <div><img src={icRightArrow} alt="下一步" /></div> -> */}
+			<div onClick={props.handleNextStepClick}>下一步</div>
 		</div>
 	)
 }

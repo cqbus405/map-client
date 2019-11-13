@@ -8,6 +8,8 @@ export const REMOVE_DESTINATION = 'REMOVE_DESTINATION'
 export const OPEN_OR_CLOSE_SEARCH_DIALOG = 'OPEN_OR_CLOSE_SEARCH_DIALOG'
 export const SAVE_PLACE_DETAIL = 'SAVE_PLACE_DETAIL'
 export const SAVE_START = 'SAVE_START'
+export const GET_ROUTE = 'GET_ROUTE'
+export const SAVE_ROUTE = 'SAVE_ROUTE'
 
 // const BASE_URL = 'http://localhost:3001'
 const BASE_URL = 'http://192.168.31.214:3001'
@@ -89,5 +91,30 @@ const saveStart = data => {
 	return {
 		type: SAVE_START,
 		detail: data.data
+	}
+}
+
+export const getRoute = payload => {
+	console.log(JSON.stringify(payload))
+	return dispatch => {
+		return fetch(`${BASE_URL}/routes`, {
+			method: 'POST',
+			body: JSON.stringify(payload),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+		.then(res => res.json())
+		.then(body => {
+			console.log(body)
+			dispatch(saveRoute(body))
+		})
+	}
+}
+
+const saveRoute = data => {
+	return {
+		type: SAVE_ROUTE,
+		routeData: data.data
 	}
 }
