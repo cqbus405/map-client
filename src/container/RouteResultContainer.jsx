@@ -6,7 +6,8 @@ const mapStateToProps = state => {
 		payload: {
 			start: state.start,
 			destinations: state.destinations
-		}
+		},
+		routeData: state.routeData
 	}
 }
 

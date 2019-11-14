@@ -10,9 +10,11 @@ export const SAVE_PLACE_DETAIL = 'SAVE_PLACE_DETAIL'
 export const SAVE_START = 'SAVE_START'
 export const GET_ROUTE = 'GET_ROUTE'
 export const SAVE_ROUTE = 'SAVE_ROUTE'
+export const SAVE_ERROR = 'SAVE_ERROR'
 
 // const BASE_URL = 'http://localhost:3001'
-const BASE_URL = 'http://192.168.31.214:3001'
+// const BASE_URL = 'http://192.168.31.214:3001'
+const BASE_URL = 'http://172.168.10.21:3001'
 
 export const isFetching = isFetching => {
 	return {
@@ -95,7 +97,6 @@ const saveStart = data => {
 }
 
 export const getRoute = payload => {
-	console.log(JSON.stringify(payload))
 	return dispatch => {
 		return fetch(`${BASE_URL}/routes`, {
 			method: 'POST',
@@ -106,8 +107,15 @@ export const getRoute = payload => {
 		})
 		.then(res => res.json())
 		.then(body => {
-			console.log(body)
-			dispatch(saveRoute(body))
+			let {errcode, message, data} = body
+			if (errcode === 0) {
+				dispatch(saveRoute(data))
+			} else {
+				dispatch(saveError({
+					errcode,
+					message
+				}))
+			}
 		})
 	}
 }
@@ -115,6 +123,13 @@ export const getRoute = payload => {
 const saveRoute = data => {
 	return {
 		type: SAVE_ROUTE,
-		routeData: data.data
+		routeData: data
+	}
+}
+
+const saveError = error => {
+	return {
+		type: SAVE_ERROR,
+		error
 	}
 }

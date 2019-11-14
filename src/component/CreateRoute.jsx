@@ -2,14 +2,6 @@ import React, { Component } from 'react'
 import Header from './Header'
 import InputLine from './InputLine'
 import SearchDialog from './SearchDialog'
-import { 
-	addDestination,
-	deleteDestination,
-	openOrCloaseSearchDialog,
-	getPlaceSuggestion,
-	clearPlaceSuggestion,
-	getPlaceDetail
-} from '../action/createRouteAction'
 import icAdd from '../assets/image/ic_add.svg'
 import icCross from '../assets/image/ic_cross.svg'
 
@@ -32,7 +24,7 @@ class CreateRoute extends Component {
 	}
 
 	handleAddBtnClick() {
-		this.props.dispatch(addDestination())
+		this.props.addDestination()
 	}
 
 	handleDeleteBtnClick(e) {
@@ -40,7 +32,7 @@ class CreateRoute extends Component {
 		if (destinations.length === 1) return
 
 		let index = e.currentTarget.id
-		this.props.dispatch(deleteDestination(index))
+		this.props.deleteDestination(index)
 	}
 
 	handleInputBoxClick(idx, e) {
@@ -54,12 +46,12 @@ class CreateRoute extends Component {
 			idx,
 			name
 		})		
-		this.props.dispatch(openOrCloaseSearchDialog(true))
+		this.props.openOrCloaseSearchDialog(true)
 	}
 
 	closeSearchDialog(e) {
-		this.props.dispatch(openOrCloaseSearchDialog(false))
-		this.props.dispatch(clearPlaceSuggestion())
+		this.props.openOrCloaseSearchDialog(false)
+		this.props.clearPlaceSuggestion()
 		this.setState({name: ''})
 	}
 
@@ -67,18 +59,18 @@ class CreateRoute extends Component {
 		let inputValue = e.currentTarget.value.trim()
 		this.setState({name: inputValue})
 		if (inputValue) {
-			this.props.dispatch(getPlaceSuggestion(inputValue, '重庆'))
+			this.props.getPlaceSuggestion(inputValue, '重庆')
 		} else {
-			this.props.dispatch(clearPlaceSuggestion())
+			this.props.clearPlaceSuggestion()
 		}
 	}
 
 	choosePlace(index, e) {
 		const uid = this.props.placeSuggestions[index].uid
-		this.props.dispatch(getPlaceDetail(uid, this.state.idx))
+		this.props.getPlaceDetail(uid, this.state.idx)
 		
-		this.props.dispatch(openOrCloaseSearchDialog(false))
-		this.props.dispatch(clearPlaceSuggestion())
+		this.props.openOrCloaseSearchDialog(false)
+		this.props.clearPlaceSuggestion()
 		this.setState({name: ''})
 	}
 

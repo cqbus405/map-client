@@ -8,7 +8,8 @@ import {
 	OPEN_OR_CLOSE_SEARCH_DIALOG,
 	SAVE_PLACE_DETAIL,
 	SAVE_START,
-	SAVE_ROUTE
+	SAVE_ROUTE,
+	SAVE_ERROR
 } from '../action/createRouteAction'
 
 const placeSuggestion = (state = {
@@ -80,10 +81,21 @@ const dialogSwitch = (state = {searchDialog: false}, action) => {
 	}
 }
 
-const routeData = (state = {}, action) => {
+const routeData = (state = {
+	statusCode: 0,
+	errorMessage: 'ok'
+}, action) => {
 	switch (action.type) {
 		case SAVE_ROUTE:
-			return Object.assign({}, action.routeData)
+			return Object.assign({}, state, {
+				data: action.routeData
+			})
+
+		case SAVE_ERROR:
+			return Object.assign({}, state, {
+				statusCode: action.error.errcode,
+				errorMessage: action.error.message
+			})
 
 		default:
 			return state

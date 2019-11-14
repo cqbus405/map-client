@@ -1,6 +1,6 @@
 import React from 'react'
-import icLeftArrow from '../assets/image/ic_left_arrow.svg'
-import icRightArrow from '../assets/image/ic_right_arrow.svg'
+// import icLeftArrow from '../assets/image/ic_left_arrow.svg'
+// import icRightArrow from '../assets/image/ic_right_arrow.svg'
 
 const Header = props => {
 	const title = props.title ? props.title : '标题' 
